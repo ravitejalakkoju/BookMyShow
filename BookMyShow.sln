@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.31410.357
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookMyShow", "BookMyShow\BookMyShow.csproj", "{D397F70E-D3F1-4305-8545-CE59EEF5A7DC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookMyShowAPI", "BookMyShowAPI\BookMyShowAPI.csproj", "{E3D9ED21-B43E-43F4-BE40-1C9C237DDA54}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D397F70E-D3F1-4305-8545-CE59EEF5A7DC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D397F70E-D3F1-4305-8545-CE59EEF5A7DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D397F70E-D3F1-4305-8545-CE59EEF5A7DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D397F70E-D3F1-4305-8545-CE59EEF5A7DC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E3D9ED21-B43E-43F4-BE40-1C9C237DDA54}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E3D9ED21-B43E-43F4-BE40-1C9C237DDA54}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E3D9ED21-B43E-43F4-BE40-1C9C237DDA54}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E3D9ED21-B43E-43F4-BE40-1C9C237DDA54}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {32B429A3-42A0-4DE6-A778-69C27CF2205A}
+	EndGlobalSection
+EndGlobal
