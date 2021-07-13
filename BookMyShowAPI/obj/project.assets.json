@@ -75,6 +75,16 @@
         "frameworkReferences": [
           "Microsoft.AspNetCore.App"
         ]
+      },
+      "BookMyShow.Models/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v5.0",
+        "compile": {
+          "bin/placeholder/BookMyShow.Models.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/BookMyShow.Models.dll": {}
+        }
       }
     }
   },
@@ -185,10 +195,16 @@
         "swashbuckle.aspnetcore.swaggerui.5.6.3.nupkg.sha512",
         "swashbuckle.aspnetcore.swaggerui.nuspec"
       ]
+    },
+    "BookMyShow.Models/1.0.0": {
+      "type": "project",
+      "path": "../BookMyShow.Models/BookMyShow.Models.csproj",
+      "msbuildProject": "../BookMyShow.Models/BookMyShow.Models.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net5.0": [
+      "BookMyShow.Models >= 1.0.0",
       "Swashbuckle.AspNetCore >= 5.6.3"
     ]
   },
@@ -226,7 +242,11 @@
       "frameworks": {
         "net5.0": {
           "targetAlias": "net5.0",
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\Coding\\Internship\\Task26\\BookMyShow\\BookMyShow.Models\\BookMyShow.Models.csproj": {
+              "projectPath": "C:\\Coding\\Internship\\Task26\\BookMyShow\\BookMyShow.Models\\BookMyShow.Models.csproj"
+            }
+          }
         }
       },
       "warningProperties": {

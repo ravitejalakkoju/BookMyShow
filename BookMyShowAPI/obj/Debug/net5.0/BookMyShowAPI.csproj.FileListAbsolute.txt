@@ -27,3 +27,5 @@ C:\Coding\Internship\Task26\BookMyShow\BookMyShowAPI\obj\Debug\net5.0\BookMyShow
 C:\Coding\Internship\Task26\BookMyShow\BookMyShowAPI\obj\Debug\net5.0\ref\BookMyShowAPI.dll
 C:\Coding\Internship\Task26\BookMyShow\BookMyShowAPI\obj\Debug\net5.0\BookMyShowAPI.pdb
 C:\Coding\Internship\Task26\BookMyShow\BookMyShowAPI\obj\Debug\net5.0\BookMyShowAPI.genruntimeconfig.cache
+C:\Coding\Internship\Task26\BookMyShow\BookMyShowAPI\bin\Debug\net5.0\BookMyShow.Models.dll
+C:\Coding\Internship\Task26\BookMyShow\BookMyShowAPI\bin\Debug\net5.0\BookMyShow.Models.pdb

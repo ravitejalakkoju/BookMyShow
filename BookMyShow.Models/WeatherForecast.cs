@@ -1,6 +1,6 @@
 using System;
 
-namespace BookMyShowAPI
+namespace BookMyShow.Models
 {
     public class WeatherForecast
     {

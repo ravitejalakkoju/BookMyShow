@@ -1,0 +1,12 @@
+C:\Coding\Internship\Task26\BookMyShow\BookMyShow.Models\bin\Debug\net5.0\BookMyShow.Models.deps.json
+C:\Coding\Internship\Task26\BookMyShow\BookMyShow.Models\bin\Debug\net5.0\BookMyShow.Models.dll
+C:\Coding\Internship\Task26\BookMyShow\BookMyShow.Models\bin\Debug\net5.0\ref\BookMyShow.Models.dll
+C:\Coding\Internship\Task26\BookMyShow\BookMyShow.Models\bin\Debug\net5.0\BookMyShow.Models.pdb
+C:\Coding\Internship\Task26\BookMyShow\BookMyShow.Models\obj\Debug\net5.0\BookMyShow.Models.csproj.AssemblyReference.cache
+C:\Coding\Internship\Task26\BookMyShow\BookMyShow.Models\obj\Debug\net5.0\BookMyShow.Models.GeneratedMSBuildEditorConfig.editorconfig
+C:\Coding\Internship\Task26\BookMyShow\BookMyShow.Models\obj\Debug\net5.0\BookMyShow.Models.AssemblyInfoInputs.cache
+C:\Coding\Internship\Task26\BookMyShow\BookMyShow.Models\obj\Debug\net5.0\BookMyShow.Models.AssemblyInfo.cs
+C:\Coding\Internship\Task26\BookMyShow\BookMyShow.Models\obj\Debug\net5.0\BookMyShow.Models.csproj.CoreCompileInputs.cache
+C:\Coding\Internship\Task26\BookMyShow\BookMyShow.Models\obj\Debug\net5.0\BookMyShow.Models.dll
+C:\Coding\Internship\Task26\BookMyShow\BookMyShow.Models\obj\Debug\net5.0\ref\BookMyShow.Models.dll
+C:\Coding\Internship\Task26\BookMyShow\BookMyShow.Models\obj\Debug\net5.0\BookMyShow.Models.pdb
