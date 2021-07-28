@@ -1,0 +1,26 @@
+.fs-7{
+    font-size: 0.9rem;
+    font-weight: 400;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.link-active{
+    color: white !important;
+    font-weight: bold;
+}
+
+.nav-link:hover{
+}
+
+.box-shadow {
+  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+}
+
+.bg-darkblue {
+  background-color: rgb(0, 1, 38);
+}

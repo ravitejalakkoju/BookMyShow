@@ -2,6 +2,8 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -11,13 +13,23 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using SimpleInjector;
+using SimpleInjector.Integration.WebApi;
+using SimpleInjector.Lifestyles;
+using System.Web.Http;
+using BookMyShow.Services;
+using PetaPoco.NetCore;
 
 namespace BookMyShowAPI
 {
     public class Startup
     {
+        private readonly Container container = new();
+
         public Startup(IConfiguration configuration)
         {
+            container.Options.ResolveUnregisteredConcreteTypes = false;
+
             Configuration = configuration;
         }
 
@@ -26,12 +38,24 @@ namespace BookMyShowAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
             services.AddControllers();
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "BookMyShowAPI", Version = "v1" });
+
+            services.AddScoped<DBContext>(x => {
+                var options = new System.Data.SqlClient.SqlConnection(Configuration.GetConnectionString("BookMyShowConnection"));
+                return new DBContext(options);
             });
+
+            services.AddSimpleInjector(container, options =>
+            {
+                options.AddAspNetCore();
+            });
+
+            InitializeContainer();
+        }
+
+        private void InitializeContainer()
+        {
+            
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -52,6 +76,8 @@ namespace BookMyShowAPI
             {
                 endpoints.MapControllers();
             });
+
+            container.Verify();
         }
     }
 }

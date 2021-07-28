@@ -1,44 +1,43 @@
 <header>
-  <nav
-    class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3"
-  >
-    <div class="container">
-      <a class="navbar-brand" [routerLink]="['/']">BookMyShow</a>
-      <button
-        class="navbar-toggler"
-        type="button"
-        data-toggle="collapse"
-        data-target=".navbar-collapse"
-        aria-label="Toggle navigation"
-        [attr.aria-expanded]="isExpanded"
-        (click)="toggle()"
-      >
+  <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-darkblue mb-0">
+    <div class="container-fluid ml-3 mr-3">
+      <a class="navbar-brand" [routerLink]="['/']"><img src="assets/logo.PNG" width = "120px"/></a>
+      <button class="navbar-toggler"
+              type="button"
+              data-toggle="collapse"
+              data-target=".navbar-collapse"
+              aria-label="Toggle navigation"
+              [attr.aria-expanded]="isExpanded"
+              (click)="toggle()">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <div
-        class="navbar-collapse collapse d-sm-inline-flex justify-content-end"
-        [ngClass]="{ show: isExpanded }"
-      >
+      <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between"
+           [ngClass]="{ show: isExpanded }">
+        <div class="nav-item">
+          <a class="nav-link text-secondary bg-light p-2 pr-5 rounded" style="font-size: small;" [routerLink]="['/fetch-data']">
+            <i class="fas fa-search m-1"></i>
+            <span class="ml-3 mr-5 pr-5">Search for Movies</span>
+          </a>
+        </div>
         <ul class="navbar-nav flex-grow">
-          <li
-            class="nav-item"
-            [routerLinkActive]="['link-active']"
-            [routerLinkActiveOptions]="{ exact: true }"
-          >
-            <a class="nav-link text-dark" [routerLink]="['/']">Home</a>
+          <li class="nav-item dropdown"
+              [routerLinkActive]="['link-active']"
+              [routerLinkActiveOptions]="{ exact: true }">
+            <a class="nav-link dropdown-toggle small mt-1" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Dropdown
+            </a>
+            <ul class="dropdown-menu dropdown-menu-light city-dropdown" aria-labelledby="navbarDarkDropdownMenuLink">
+              <li><a class="dropdown-item" href="#">Action</a></li>
+            </ul>
           </li>
           <li class="nav-item" [routerLinkActive]="['link-active']">
-            <a class="nav-link text-dark" [routerLink]="['/counter']"
-              >Counter</a
-            >
-          </li>
-          <li class="nav-item" [routerLinkActive]="['link-active']">
-            <a class="nav-link text-dark" [routerLink]="['/fetch-data']"
-              >Fetch data</a
-            >
+            <a class="nav-link text-light" [routerLink]="['/fetch-data']">
+              <img src="assets/profile.png" class="rounded-circle border-1" width="25px"/>
+              <span class="ml-2 small">Hi, Guest</span>
+            </a>
           </li>
         </ul>
       </div>
     </div>
-  </nav>
+</nav>
 </header>

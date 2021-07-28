@@ -9,4 +9,9 @@
     <Folder Include="Services\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="PetaPoco" Version="5.1.306" />
+    <PackageReference Include="PetaPoco.NetCore" Version="1.0.1" />
+  </ItemGroup>
+
 </Project>

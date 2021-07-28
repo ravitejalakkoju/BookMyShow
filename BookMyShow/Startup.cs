@@ -5,13 +5,21 @@ using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using SimpleInjector;
+using BookMyShow.Services;
+using PetaPoco.NetCore;
+using BookMyShow.Entities;
+using BookMyShow.Services.Repositories;
 
 namespace BookMyShow
 {
     public class Startup
     {
+        private readonly Container container = new Container();
         public Startup(IConfiguration configuration)
         {
+            container.Options.ResolveUnregisteredConcreteTypes = false;
+
             Configuration = configuration;
         }
 
@@ -21,16 +29,38 @@ namespace BookMyShow
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
-            // In production, the Angular files will be served from this directory
+
+            services.AddScoped<DBContext>(x => {
+                var options = new System.Data.SqlClient.SqlConnection(Configuration.GetConnectionString("BookMyShowConnection"));
+                return new DBContext(options);
+            });
+            
+            services.AddScoped<ILocationRepository, LocationRepository>();
+            services.AddScoped<ITheatreRepository, TheatreRepository>();
+
             services.AddSpaStaticFiles(configuration =>
             {
                 configuration.RootPath = "ClientApp/dist";
             });
+
+            services.AddSimpleInjector(container, options =>
+            {
+                options.AddAspNetCore();
+            });
+
+            //InitializeContainer();
+        }
+
+        private void InitializeContainer()
+        {
+            container.Register<ILocationRepository, LocationRepository>(Lifestyle.Scoped);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.UseSimpleInjector(container);
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -44,6 +74,7 @@ namespace BookMyShow
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+
             if (!env.IsDevelopment())
             {
                 app.UseSpaStaticFiles();
@@ -53,9 +84,10 @@ namespace BookMyShow
 
             app.UseEndpoints(endpoints =>
             {
+                //endpoints.MapControllers();
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller}/{action=Index}/{id?}");
+                    pattern: "{controller}/{action}/{id?}");
             });
 
             app.UseSpa(spa =>
@@ -70,6 +102,8 @@ namespace BookMyShow
                     spa.UseAngularCliServer(npmScript: "start");
                 }
             });
+
+            container.Verify();
         }
     }
 }
