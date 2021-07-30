@@ -4,7 +4,7 @@ using PetaPoco.NetCore;
 namespace BookMyShow.Entities
 {
     [TableName("Movie")]
-    public class Movie: IAggregateRoot
+    public class Movie: IEntity
     {
         public int ID { get; set; }
 

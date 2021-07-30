@@ -1,0 +1,35 @@
+<nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-darkblue mb-0 py-0">
+    <div class="container-fluid mx-5 p-0">
+      <button class="navbar-toggler"
+              type="button"
+              data-toggle="collapse"
+              data-target=".navbar-collapse"
+              aria-label="Toggle navigation"
+              [attr.aria-expanded]="isExpanded"
+              (click)="toggle()">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between"
+           [ngClass]="{ show: isExpanded }">
+        <div class="left">
+          <ul class="navbar-nav flex-grow">
+            <li class="nav-item" >
+              <a class="nav-link fs-7 text-navigator" [routerLink]="moviesRouterLink" [routerLinkActive]="['active-link']" [routerLinkActiveOptions]="{exact: false}">
+                <span (click)="moviesNavigatorClick($event)">Movies</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div class="right">
+          <ul class="navbar-nav flex-grow">
+            <li class="nav-item" [routerLinkActive]="['link-active']">
+              <a class="nav-link text-light" [routerLink]="['/']">
+                
+              </a>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </nav>

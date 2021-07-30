@@ -1,0 +1,26 @@
+<li class="col-12 px-2 py-3 mb-2 bg-white small rounded">
+    <div class="d-flex justify-content-between">
+        <div>
+            <button class="bg-transparent border-0">
+                <i *ngIf="!showStatusSelector" class="fas fa-angle-down me-2" (click)="toggleStatusSelector()"></i>
+                <i *ngIf="showStatusSelector" class="fas fa-angle-up me-2" (click)="toggleStatusSelector()"></i>
+            </button>
+            <span>Status</span>
+        </div>
+        <button class="small bg-transparent border-0 text-secondary clear-link" (click)="reset()">Clear</button>
+    </div>
+    <ul class="list-unstyled list-inline mt-4" *ngIf="showStatusSelector">
+        <li class="list-inline-item mx-1 my-1">
+            <label>
+                <input type="radio" name="status" value="released" (change)="statusChange($event.target.value)" [checked]="selectedStatus==released"/>
+                <span class="py-2 px-3 border text-danger">Released</span>
+            </label>
+        </li>
+        <li class="list-inline-item mx-1 my-1">
+            <label>
+                <input type="radio" name="status" name="Status" value="releasingSoon" (change)="statusChange($event.target.value)" [checked]="selectedStatus==releasedSoon"/>
+                <span class="py-2 px-3 border text-danger">Releasing Soon</span>
+            </label>
+        </li>
+    </ul>
+</li>

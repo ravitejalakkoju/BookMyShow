@@ -1,0 +1,28 @@
+<li class="col-12 px-2 py-3 mb-2 bg-white small rounded">
+    <div class="d-flex justify-content-between">
+        <div>
+            <button class="bg-transparent border-0">
+                <i *ngIf="!showDateSelector" class="fas fa-angle-down me-2" (click)="toggleDateSelector()"></i>
+                <i *ngIf="showDateSelector" class="fas fa-angle-up me-2" (click)="toggleDateSelector()"></i>
+            </button>
+            <span>Date</span>
+        </div>
+        <button class="small bg-transparent border-0 text-secondary clear-link" (click)="reset()">Clear</button>
+    </div>
+    <ul class="list-unstyled list-inline mt-4" *ngIf="showDateSelector">
+        <li class="list-inline-item mx-1 my-1">
+            <label>
+                <input type="radio" name="date" value="{{currentDate | date: 'yyyy-MM-dd'}}" (change)="dateChange($event.target.value)" [checked]="selectedDate==currentDate"/>
+                <span class="py-2 px-3 border text-danger">Today</span>
+            </label>
+        </li>
+        <li class="list-inline-item mx-1 my-1">
+            <label>
+                <input type="radio" name="date" name="date" value="{{nextDate | date: 'yyyy-MM-dd'}}" (change)="dateChange($event.target.value)" [checked]="selectedDate==nextDate"/>
+                <span class="py-2 px-3 border text-danger">Tomorrow</span>
+            </label>
+        </li>
+        <br>
+        <input name="date" type="date" class="ms-1 mt-4" (change)="dateChange($event.target.value)" value="{{selectedDate | date: 'yyyy-MM-dd'}}" min="2021-07-25" max="2021-08-10"/>
+    </ul>
+</li>

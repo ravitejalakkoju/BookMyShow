@@ -14,5 +14,9 @@ namespace BookMyShow.Services
         {
         }
 
+        internal void Save<T>(string v1, string v2, T t)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

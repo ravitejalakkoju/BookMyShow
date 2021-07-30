@@ -1,0 +1,24 @@
+<div class="theatres-list bg-light border-bottom">
+    <div class="date-select">
+        <ul class="bg-white dates-list list-unstyled d-flex justify-content-left">
+            <li *ngFor="let date of dates" class="p-3 border-end" [ngClass]="{'bg-danger': selectedDate==date}" [style.flex-shrink]="0">
+                <button class="bg-transparent border-0" value="{{date}}" (click)="selectDate($event.target)" [ngClass]="{'text-white': selectedDate==date}">{{date}}</button>
+            </li>
+        </ul>
+    </div>
+    <div class="seat-selection position-absolute top-0 left-0 w-100 bg-transparent">
+        <router-outlet></router-outlet>
+    </div>
+    <div class="bg-white rounded my-5 m-5">
+        <ul class="px-5 py-3 list-unstyled theatre-list">
+            <li *ngFor="let theatre of theatres" class="theatre-list-item text-left p-3 border-bottom">
+                <h5>{{theatre.name}}</h5>
+                <ul class="list-unstyled list-inline mt-3">
+                    <li class="list-inline-item small mx-1">
+                        <a [routerLink]="['0']" class="text-decoration-none text-danger border border-danger px-1 rounded-pill">6:15 PM</a>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+    </div>
+</div> 

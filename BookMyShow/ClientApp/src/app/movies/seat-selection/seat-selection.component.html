@@ -1,0 +1,38 @@
+<div class="bg-transparent p-5 mt-4">
+    <div class="bg-white rounded col-12 col-lg-9 m-auto p-3 box-shadow">
+        <div class="d-flex justify-content-between p-3">
+            <a [routerLink]="['..']"><i class="fas fa-arrow-left text-secondary"></i></a>
+            <!--<h5 class="seat-selection-heading"><strong class="text-danger border-bottom px-3">Book your Seats</strong></h5> -->
+            <a [routerLink]="['..']"><i class="fas fa-times text-secondary"></i></a>
+        </div>
+        <div class="theatre border border-danger">
+        <div class="seats-section m-auto my-3 rounded p-3 d-flex justify-content-center position-relative">
+                <ul class="list-unstyled">
+                    <li *ngFor="let seats of seatBooked.slice().reverse(); let level = index" class="">
+                        <ul class="list-unstyled list-inline seats-list my-1 border-top">
+                            <span class="position-absolute level"><strong class="small text-secondary">{{numToChar(levels-level-1) | uppercase}}</strong></span>
+                            <li *ngFor="let seat of seats; let seatNumber = index" class="list-inline-item m-0">
+                                <button class="border-0 bg-transparent" [isDisabled]="disableBooking" value="{{level + ',' + seatNumber}}" (click)="bookSeat(level + ',' + seatNumber)">
+                                    <img class="seat" *ngIf="!seat" width="25" src="https://cdn.iconscout.com/icon/premium/png-256-thumb/theatre-seat-917571.png">
+                                    <img class="seat" *ngIf="seat" width="25" src="https://cdn.iconscout.com/icon/premium/png-256-thumb/theatre-seat-1-917578.png">
+                                </button>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="d-flex justify-content-center border w-75 m-auto small screen rounded">
+                <span class="small fw-bold">Screen this side</span>
+            </div>
+        </div>
+        <div *ngIf="selectedSeats.length > 0" class="my-3 p-5 bg-light d-flex justify-content-between align-items-center">
+            <div class="ticket">
+                <h6>Selected Seats:</h6>
+                <span *ngFor="let seat of selectedSeats" class="px-2 fw-bold">{{seat}}</span>
+            </div>
+            <div class="p-3">
+                <a [routerLink]="['/user/customer/login']" class="text-decoration-none payment rounded-pill fw-bold py-3 px-4 border-0">Proceed to Payment</a>
+            </div>
+        </div>
+    </div>
+</div>

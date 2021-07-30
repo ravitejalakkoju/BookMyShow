@@ -9,7 +9,10 @@ using SimpleInjector;
 using BookMyShow.Services;
 using PetaPoco.NetCore;
 using BookMyShow.Entities;
-using BookMyShow.Services.Repositories;
+using BookMyShow.Services.Repositories.Interfaces;
+using BookMyShow.Services.Repositories.Mock;
+using BookMyShow.Services.AutoMapperProfiles;
+using BookMyShow.Services;
 
 namespace BookMyShow
 {
@@ -34,9 +37,18 @@ namespace BookMyShow
                 var options = new System.Data.SqlClient.SqlConnection(Configuration.GetConnectionString("BookMyShowConnection"));
                 return new DBContext(options);
             });
-            
-            services.AddScoped<ILocationRepository, LocationRepository>();
-            services.AddScoped<ITheatreRepository, TheatreRepository>();
+
+
+            //MockRespository
+            services.AddScoped<ILocationRepository, MockLocationRepository>();
+
+            //Automapper DI
+            services.AddAutoMapper(typeof(LocationProfile));
+
+            //RegisterServices
+            services.AddScoped<LocationService>();
+
+            //services.AddCors();
 
             services.AddSpaStaticFiles(configuration =>
             {
@@ -53,12 +65,15 @@ namespace BookMyShow
 
         private void InitializeContainer()
         {
-            container.Register<ILocationRepository, LocationRepository>(Lifestyle.Scoped);
+            //container.Register<ILocationRepository, LocationRepository>(Lifestyle.Scoped);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            /* app.UseCors(options => {
+                options.WithOrigins("http://localhost:63402").AllowAnyMethod().AllowAnyHeader();
+            }); */
             app.UseSimpleInjector(container);
 
             if (env.IsDevelopment())
@@ -84,10 +99,7 @@ namespace BookMyShow
 
             app.UseEndpoints(endpoints =>
             {
-                //endpoints.MapControllers();
-                endpoints.MapControllerRoute(
-                    name: "default",
-                    pattern: "{controller}/{action}/{id?}");
+                endpoints.MapControllers();
             });
 
             app.UseSpa(spa =>
@@ -95,7 +107,7 @@ namespace BookMyShow
                 // To learn more about options for serving an Angular SPA from ASP.NET Core,
                 // see https://go.microsoft.com/fwlink/?linkid=864501
 
-                spa.Options.SourcePath = "ClientApp";
+                spa.Options.SourcePath = "WebClient";
 
                 if (env.IsDevelopment())
                 {

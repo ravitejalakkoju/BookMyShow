@@ -1,0 +1,51 @@
+<header>
+  <nav class="navbar navbar-expand-sm navbar-toggleable-sm bg-darkblue mb-0">
+    <div class="container-fluid mx-5">
+      <a class="navbar-brand" [routerLink]="['/']"><img src="assets/logo.PNG" width = "120px"/></a>
+      <button class="navbar-toggler"
+              type="button"
+              data-toggle="collapse"
+              data-target=".navbar-collapse"
+              aria-label="Toggle navigation"
+              [attr.aria-expanded]="isExpanded"
+              (click)="toggle()">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between"
+           [ngClass]="{ show: isExpanded }">
+        <div class="nav-item">
+          <a class="nav-link text-secondary bg-light p-2 ps-3 rounded movie-search-link" style="font-size: small;" [routerLink]="['explore/search']">
+            <i class="fas fa-search m-1"></i>
+            <span class="ps-2 me-5 pe-md-5">Search for Movies</span>
+          </a>
+        </div>
+        <ul class="navbar-nav flex-grow d-flex align-items-center">
+          <li class="nav-item">
+            <button class="nav-link bg-transparent small text-light" (click)="toggleLocationPicker()">{{selectedCity}} <i class="fas fa-caret-down ms-1"></i></button>
+          </li>
+          <ng-container *ngIf="!isLogged; then notLogged else logged"></ng-container>
+          <ng-template #notLogged>
+            <li class="nav-item mx-2">
+              <a class="nav-link bg-danger small text-light p-1 px-3 rounded login" [routerLink]="['user/customer/login']">LogIn</a>
+            </li>
+            <li class="nav-item ms-2">
+              <button class="nav-link bg-transparent text-light rounded p-2 py-1" (click)="toggleOptions()">
+                <i class="fas fa-bars"></i>
+              </button>
+            </li>
+          </ng-template>
+          <ng-template #logged>
+            <li class="nav-item" [routerLinkActive]="['active-link']">
+              <button class="nav-link bg-transparent border-0" [routerLink]="['user/customer']" (click)="toggleOptions()">
+                <img src="assets/profile.png" class="rounded-circle border-1" width="25px"/>
+                <span class="ms-2 small text-light">Hi, Guest</span>
+              </button>
+            </li>
+          </ng-template>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <app-location-picker [cityName]="selectedCity" *ngIf="locationPicker" (toggleLocationPicker)="toggleLocationPicker($event)" (citySelector)="selectCity($event)"></app-location-picker>
+  <app-options *ngIf="options" (toggleOptions)="toggleOptions($event)"></app-options>
+</header>

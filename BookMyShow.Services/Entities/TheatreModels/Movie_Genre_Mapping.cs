@@ -8,8 +8,10 @@ using PetaPoco.NetCore;
 namespace BookMyShow.Entities
 {
     [TableName("Movie_Genre_Mapping")]
-    public class Movie_Genre_Mapping
+    public class Movie_Genre_Mapping: IEntity
     {
+        public int ID { get; set; }
+
         public int MovieID { get; set; }
 
         public int GenreID { get; set; }

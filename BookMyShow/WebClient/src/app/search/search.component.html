@@ -1,0 +1,23 @@
+<div class="h-100 w-100 position-absolute top-0 left-0 bg-white small">
+    <div class="bg-light row py-4 pb-5">
+        <button class="col-1 bg-transparent border-0 fs-5 text-secondary" (click)="goBack()"><i class="fas fa-arrow-left"></i></button>
+        <div class="text-center col small">
+            <input type="text" class="px-3 py-3 col-8" [(ngModel)]="searchValue" (input)='search()' placeholder="Search for Movies">
+        </div>
+        <button class="col-1 bg-transparent border-0 fs-5 text-secondary" (click)="goBack()"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="container mt-3 py-3 fs-6 text-secondary">
+        <ng-container *ngIf="(matchedMovies.length > 0); then moviesList else elseBlock"></ng-container>
+        <ng-template #moviesList>
+            <ul class="search-list list-unstyled p-2">
+                <li *ngFor="let movie of matchedMovies" class="search-list-item align-middle border-bottom p-2">
+                    <i class="fas fa-film"></i>
+                    <span class="small mx-3" [innerHTML]="movie"></span>
+                </li>
+            </ul>
+        </ng-template>
+        <ng-template #elseBlock>
+            <span class="small d-flex justify-content-center">No Movies</span>
+        </ng-template>
+    </div>
+</div>

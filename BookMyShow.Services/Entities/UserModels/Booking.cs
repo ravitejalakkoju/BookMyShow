@@ -4,7 +4,7 @@ using PetaPoco.NetCore;
 namespace BookMyShow.Entities
 {
     [TableName("Booking")]
-    public class Booking
+    public class Booking: IEntity
     {
         public int ID { get; set; }
 

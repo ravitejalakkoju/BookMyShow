@@ -1,0 +1,53 @@
+<div class="bookings-section col-12 p-5 bg-light">
+    <div class="">
+        <h6 class="heading bg-dark p-2 text-white rounded">{{ "Booking History" | uppercase }}</h6>
+        <ul class="list-unstyled">
+            <router-outlet></router-outlet>
+            <li class="booking p-3 rounded my-2 bg-white">
+                <div class="d-flex justify-content-between">
+                    <div class="">
+                        <div class="booking-id list-inline">
+                            <h6 class="list-inline-item">Booking ID: </h6>
+                            <span class="list-inline-item">143247423482748723</span>
+                        </div>
+                        <div class="list-inline">
+                            <h6 class="list-inline-item">Movie: </h6>
+                            <span class="list-inline-item ls-1">{{"Avengers" | uppercase}}</span>
+                        </div>
+                        <div class="list-inline">
+                            <h6 class="list-inline-item">Date: </h6>
+                            <span class="list-inline-item">{{"2021-07-26" | uppercase}}</span>
+                        </div>
+                    </div>
+                    <div class="expand">
+                        <a [routerLink]="['0']" *ngIf="currentId != 0" class='text-dark'><i class="fas fa-eye-slash"></i></a>
+                        <a [routerLink]="['../bookings']" (click)="nullifyCurrentId()" *ngIf="currentId == 0" class='text-dark'><i class="fas fa-eye"></i></a>
+                    </div>
+                </div>
+            </li>
+            <li class="booking p-3 rounded my-2 bg-white position-relative">
+                <img *ngIf="true" width="65" src="https://thumbs.dreamstime.com/b/completed-stamp-grunge-vintage-isolated-white-background-sign-148426393.jpg" class="completed-stamp">
+                <div class="d-flex justify-content-between">
+                    <div class="">
+                        <div class="booking-id list-inline">
+                            <h6 class="list-inline-item">Booking ID: </h6>
+                            <span class="list-inline-item">143247423482748723</span>
+                        </div>
+                        <div class="list-inline">
+                            <h6 class="list-inline-item">Movie: </h6>
+                            <span class="list-inline-item ls-1">{{"Avengers" | uppercase}}</span>
+                        </div>
+                        <div class="list-inline">
+                            <h6 class="list-inline-item">Date: </h6>
+                            <span class="list-inline-item">{{"2021-07-26" | uppercase}}</span>
+                        </div>
+                    </div>
+                    <div class="expand">
+                        <a [routerLink]="['1']" *ngIf="currentId != 1" class='text-dark'><i class="fas fa-eye-slash"></i></a>
+                        <a [routerLink]="['../bookings']" (click)="nullifyCurrentId()" *ngIf="currentId == 1" class='text-dark'><i class="fas fa-eye"></i></a>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>

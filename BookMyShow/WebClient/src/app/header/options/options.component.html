@@ -1,0 +1,49 @@
+<div class="options position-absolute top-0 w-100 h-100 d-flex justify-content-end" (click)="this.toggleOptions.emit($event)">
+    <div class="options-container col-12 col-sm-6 col-lg-4 bg-white small" (click)="$event.stopPropagation()">
+        <ul class="list-unstyled">
+            <li class="bg-darkblue navbar p-3 fs-5"><b class="text-white">Hey!</b></li>
+            <li class="bg-light p-3 options-list-item text-secondary col-12 d-flex justify-content-between" [ngClass]="{'no-hover': lock}">
+                <div>
+                    <i class="far fa-bell fs-6"></i>
+                    <span class="small ms-3 fw-bold">Notifications</span>
+                </div>
+                <i *ngIf="!lock; else lockKey" class="fas fa-arrow-right pt-1"></i>
+                <ng-template #lockKey>
+                    <i class="fas fa-lock"></i>
+                </ng-template>
+            </li>
+            <li class="bg-light p-3 options-list-item col-12" [ngClass]="{'no-hover': !lock}">
+                <a class="d-flex justify-content-between text-decoration-none text-secondary" (click)="toggleOptions.emit($event)" [routerLink]="['/user/customer/0/bookings']">
+                    <div>
+                        <i class="fas fa-history fs-6"></i>
+                        <span class="small ms-3 fw-bold">Booking History</span>
+                    </div>
+                    <i *ngIf="lock; else lockKey" class="fas fa-arrow-right pt-1"></i>
+                    <ng-template #lockKey>
+                        <i class="fas fa-lock"></i>
+                    </ng-template>
+                </a>
+            </li>
+            <li class="bg-light p-3 options-list-item col-12" [ngClass]="{'no-hover': !lock}">
+                <a class="d-flex justify-content-between text-decoration-none text-secondary" (click)="toggleOptions.emit($event)" [routerLink]="['/user/customer/0']">
+                    <div>
+                    <i class="fas fa-user-cog fs-6"></i>
+                    <span class="small ms-3 fw-bold">Settings</span>
+                    </div>
+                    <i *ngIf="lock; else lockKey" class="fas fa-arrow-right pt-1"></i>
+                    <ng-template #lockKey>
+                        <i class="fas fa-lock"></i>
+                    </ng-template>
+                </a>
+            </li>
+        </ul>
+        <div class="position-absolute col-12 col-sm-6 col-lg-4 left-0 bottom-0 py-3 bg-light">
+            <div class="d-flex justify-content-center">
+                <a (click)="this.toggleOptions.emit($event)" [routerLink]="['user/customer/' + action.toLowerCase()]" class="btn btn-danger col-10 fw-bold">{{action}}</a>
+            </div>
+            <span *ngIf="!hasLogged" class="d-flex justify-content-center small">
+                No account ? &nbsp;<a (click)="this.toggleOptions.emit($event)" [routerLink]="['user/customer/signup']">SignUp</a>
+            </span>
+        </div>
+    </div>
+</div>

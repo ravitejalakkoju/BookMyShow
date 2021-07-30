@@ -3,7 +3,7 @@
 namespace BookMyShow.Entities
 {
     [TableName("Location")]
-    public class Location: IAggregateRoot
+    public class Location: IEntity
     {
         public int ID { get; set; }
 

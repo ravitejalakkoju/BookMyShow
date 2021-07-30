@@ -10,3 +10,6 @@ C:\Coding\Internship\Task26\BookMyShow\BookMyShow.Services\bin\Debug\net5.0\Book
 C:\Coding\Internship\Task26\BookMyShow\BookMyShow.Services\obj\Debug\net5.0\BookMyShow.Services.dll
 C:\Coding\Internship\Task26\BookMyShow\BookMyShow.Services\obj\Debug\net5.0\ref\BookMyShow.Services.dll
 C:\Coding\Internship\Task26\BookMyShow\BookMyShow.Services\obj\Debug\net5.0\BookMyShow.Services.pdb
+C:\Coding\Internship\Task26\BookMyShow\BookMyShow.Services\bin\Debug\net5.0\BookMyShow.Models.dll
+C:\Coding\Internship\Task26\BookMyShow\BookMyShow.Services\bin\Debug\net5.0\BookMyShow.Models.pdb
+C:\Coding\Internship\Task26\BookMyShow\BookMyShow.Services\obj\Debug\net5.0\BookMyShow.Services.csproj.CopyComplete

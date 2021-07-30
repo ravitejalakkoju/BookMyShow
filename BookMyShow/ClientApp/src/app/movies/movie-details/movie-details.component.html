@@ -1,0 +1,53 @@
+<div class="bg-lightgray border">
+    <div class="intro-section">
+        <div class="background" [ngStyle]="{'background-image': 'url(' + 'https://i.pinimg.com/originals/1f/26/d3/1f26d3c52508b1a46235e0cf7087ab65.jpg' + ')'}"></div>
+        <div class="foreground row p-5 d-flex align-items-center">
+            <img class="col-12 col-md-3 rounded" src="https://i.pinimg.com/originals/1f/26/d3/1f26d3c52508b1a46235e0cf7087ab65.jpg" width="100">
+            <div class="col-12 col-md-9 px-3 text-white">
+                <span class="small bg-dark py-1 px-2 bg-darkblue rounded-pill">
+                    <i class="fas fa-play text-danger"></i>
+                    <span class="small mx-1">{{ "released" | uppercase }}</span>
+                </span>
+                <h1 class="mt-3 mb-2"><strong>Avengers</strong></h1>
+                <ul class="list-unstyled list-inline text-light small mb-4">
+                    <li class="list-inline-item">English, Telugu</li>.
+                </ul>
+                <ul class="list-unstyled list-inline">
+                    <li class="list-inline-item">2h 34m</li>.
+                    <li class="list-inline-item">Action, Drama</li>.
+                    <li class="list-inline-item">13+</li>.
+                    <li class="list-inline-item">{{"2021-07-25"}}</li>
+                </ul>
+                <a [routerLink]="['theatres']" class="booking-btn my-3 px-5 btn bg-danger rounded-pill text-white">Book Now</a>
+            </div>
+        </div>
+    </div>
+    <div class="about-section mx-5 mt-5 pb-3 border-bottom">
+        <h4 class="mb-3"><strong>About the movie</strong></h4>
+        <p>
+            The Avengers, also known as The Avengers and Avengers Assemble, is a 2012 superhero film, based on the Marvel Comics superhero team of the same name. The film is a crossover/sequel to Iron Man, The Incredible Hulk, Iron Man 2, Thor, and Captain America: The First Avenger.
+        </p>
+    </div>
+    <div class="cast-section mx-5 mt-3 border-bottom">
+        <h4 class="mb-3"><strong>Cast</strong></h4>
+        <ul class="list-unstyled d-flex justify-content-left cast-list">
+            <li class="list-inline-item text-center p-2">
+                <img class="mb-3" src="https://static.toiimg.com/photo/msid-75805310/75805310.jpg"  width="100" height="100" class="rounded-circle">
+                <div class="fs-6 mt-2 text-wrap">Robert Downey Jr. <br>
+                    <span class="text-secondary small">as Iron Man a.k.a Tony Stark</span>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div class="crew-section mx-5 mt-3 border-bottom">
+        <h4 class="mb-3"><strong>Crew</strong></h4>
+        <ul class="list-unstyled d-flex justify-content-left crew-list">
+            <li class="list-inline-item text-center p-2">
+                <img class="mb-3" src="https://m.media-amazon.com/images/M/MV5BMTc2NzY1NTY5OF5BMl5BanBnXkFtZTgwNjY3ODczNjM@._V1_.jpg"  width="100" height="100" class="rounded-circle">
+                <div class="fs-6 mt-2 text-wrap">Joe Russo <br>
+                    <span class="text-secondary small">Director</span>
+                </div>
+            </li>            
+        </ul>
+    </div>
+</div>

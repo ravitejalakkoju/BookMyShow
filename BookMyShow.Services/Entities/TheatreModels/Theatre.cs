@@ -3,7 +3,7 @@
 namespace BookMyShow.Entities
 {
     [TableName("Theatre")]
-    public class Theatre: IAggregateRoot
+    public class Theatre: IEntity
     {
         public int ID { get; set; }
 

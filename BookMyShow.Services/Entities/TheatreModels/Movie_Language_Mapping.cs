@@ -8,8 +8,9 @@ using PetaPoco.NetCore;
 namespace BookMyShow.Entities
 {
     [TableName("Movie_Language_Mapping")]
-    public class Movie_Language_Mapping
+    public class Movie_Language_Mapping: IEntity
     {
+        public int ID { get; set; }
         public int MovieID { get; set; }
 
         public int LanguageID { get; set; }

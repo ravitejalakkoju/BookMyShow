@@ -3,7 +3,7 @@
 namespace BookMyShow.Entities
 {
     [TableName("Screen")]
-    public class Screen
+    public class Screen: IEntity
     {
         public int ID { get; set; }
 
@@ -16,5 +16,7 @@ namespace BookMyShow.Entities
         public int TheatreID { get; set; }
 
         public int MovieID { get; set; }
+
+        public string ShowTime { get; set; }
     }
 }

@@ -1,0 +1,40 @@
+[type=radio]  
+  position: absolute
+  opacity: 0
+  width: 0
+  height: 0
+
+/* IMAGE STYLES */
+[type=radio] + img 
+  cursor: pointer
+
+[type=radio]:checked + span 
+  color: red
+  &:hover
+    cursor: pointer
+
+[type=radio] + span:hover
+  cursor: pointer
+  color: red
+  
+.location-picker
+  z-index: 100 !important
+  background-color: #00000096
+
+input:focus
+    outline: 0
+
+li
+  display: inline
+
+li:nth-child(5n):after
+  content: "\A"
+  white-space: pre
+
+.cities-list
+  max-height: 10rem
+  overflow-x: hidden
+
+::-webkit-scrollbar 
+    width: 0px
+    background: transparent

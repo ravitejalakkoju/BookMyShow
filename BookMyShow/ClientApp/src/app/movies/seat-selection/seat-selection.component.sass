@@ -1,0 +1,61 @@
+.seat-selection-heading
+    letter-spacing: 2px !important
+
+.level
+    left: 0
+    border: 2px solid #ff4e4e !important
+    border-left: 0 !important
+    width: 15px
+
+.screen
+    border: 1px solid #b4b4b4 !important
+    border-bottom: 0 !important
+    color: #b4b4b4
+
+.box-shadow
+    box-shadow: 1px 0 5px 1px #b4b4b4
+
+.ticket 
+    position: relative
+    border: 2px solid white
+    background: #ff4e4e
+    color: white
+    text-transform: uppercase
+    text-align: center
+    display: inline-block
+    padding: 1em 2em
+    outline: 1px dashed white
+    outline-offset: -8px
+
+.ticket:before,
+.ticket:after
+    height:90px
+    width:45px
+    content: ''
+    position: absolute
+    top: 1.2em
+    top: calc(0.9em - 1px)
+    height: 2.4em
+    width: 1.2em
+    border: 2px solid white
+    background-color: white
+
+.ticket:before 
+    top: 1.2rem
+    left: -2px
+    border-radius: 0 2em 2em 0
+    border-left-color: white
+
+.ticket:after 
+    top: 1.2rem
+    right: -2px
+    border-radius: 2em 0 0 2em
+    border-right-color: white
+
+.payment
+    background-color: #ff4e4e
+    color: white
+    letter-spacing: 1px
+    &:hover
+        background-color: #ec3939
+        cursor: pointer

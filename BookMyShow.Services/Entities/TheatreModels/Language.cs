@@ -3,7 +3,7 @@
 namespace BookMyShow.Entities
 {
     [TableName("Language")]
-    public class Language
+    public class Language: IEntity
     {
         public int ID { get; set; }
 

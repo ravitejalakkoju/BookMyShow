@@ -1,0 +1,39 @@
+<div class="location-picker justify-content-center p-5 position-absolute top-0 border w-100 h-100" (click)="this.toggleLocationPicker.emit($event)">
+    <div class="location-picker-container border text-center col-md-10 bg-white mt-2 small m-auto" (click)="$event.stopPropagation()">
+        <div class="bg-transparent border m-3 p-2 ps-0">
+            <i class="fas fa-search ms-1 me-4 small text-secondary"></i>
+            <input type="text" class="col-11 border-0 small" placeholder="Search for your city">
+        </div>
+        <span>Popular Cities</span>
+        <ul class="list-unstyled list-inline d-flex justify-content-center">
+            <li class="list-inline-item text-center">
+                <label>
+                    <input type="radio" value="hyderabad" name="place" [(ngModel)] = "selectedCity" (change)="isSelected($event.target.value)">
+                    <img *ngIf="selectedCity.toLowerCase()=='hyderabad'" src="https://cdn.iconscout.com/icon/free/png-512/charminar-1-119696.png" width="100" class="m-2">
+                    <img *ngIf="selectedCity.toLowerCase()!='hyderabad'" src="https://cdn.iconscout.com/icon/free/png-256/charminar-119682.png" width="100" class="m-2">
+                    <br/>Hyderabad
+                </label>
+            </li>
+            <li class="list-inline-item text-center">
+                <label>
+                    <input type="radio" value="mumbai" name="place" [(ngModel)] = "selectedCity" (change)="isSelected($event.target.value)">
+                    <img *ngIf="selectedCity.toLowerCase()=='mumbai'" src="https://thumbs.dreamstime.com/b/gate-india-mumbai-bombay-vector-illustration-isolated-white-background-89579231.jpg" width="100" class="m-2">
+                    <img *ngIf="selectedCity.toLowerCase()!='mumbai'" src="https://www.seekpng.com/png/full/90-905415_gateway-of-india-full-hd-maps-locations-mumbai.png" width="100" class="m-2">
+                    <br/>Mumbai
+                </label>
+            </li>
+        </ul>    
+        <div class="cities-list" *ngIf="viewCities">
+            <span class="text-center small text-dark">Other Cities</span>
+            <ul class="small list-unstyled list-inline text-secondary row mt-3">
+                <li *ngFor="let location of locations" class="list-inline-item text-left col-2">
+                    <label>
+                        <input type="radio" value="{{location.name | lowercase}}" name="place"  [(ngModel)] = "selectedCity" (change)="isSelected(location.name.toLowerCase())">
+                        <span>{{location.name}}</span>
+                    </label>
+                </li>
+            </ul>
+        </div>
+        <button class="bg-transparent border-0 m-2 text-danger" (click)="toggleViewCities()">{{!viewCities ? "View" : "Hide"}} all Cities</button>
+    </div>
+</div>
