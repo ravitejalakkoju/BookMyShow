@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { LocationService } from '../services/location.service';
+import { ILocation } from '../Interfaces/ILocation';
 
 @Component({
   selector: 'app-header',
@@ -12,7 +13,7 @@ export class HeaderComponent implements OnInit {
   isExpanded: boolean = false;
   isLogged: boolean = false;
 
-  selectedCity: string = "Select City"; 
+  selectedCity: ILocation = { id: -1, name: "Select City" };
 
   locationPicker: boolean;
   locationPickerSubscription: any;
@@ -47,8 +48,8 @@ export class HeaderComponent implements OnInit {
     return str.charAt(0).toUpperCase() + str.slice(1);
   }
 
-  selectCity(value: string){
-    this.selectedCity = this.capitalizeFirstLetter(value);
+  selectCity(value: ILocation) {
+    this.selectedCity = value;
     this._locationService.updateCurrentLocation(value);
     this._locationService.updatePickLocationChange(false);
   }
@@ -57,3 +58,4 @@ export class HeaderComponent implements OnInit {
   }
 
 }
+

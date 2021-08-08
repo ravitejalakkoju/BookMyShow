@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { LocationService } from 'src/app/services/location.service';
+import { MoviesService } from '../../services/movies.service';
+
+import { IMovie } from '../../Interfaces/IMovie';
+import { ILocation } from '../../Interfaces/ILocation';
 
 @Component({
   selector: 'app-movies',
@@ -8,53 +13,43 @@ import { LocationService } from 'src/app/services/location.service';
 })
 
 export class MoviesComponent implements OnInit {
-  
-  selectedLocation: string;
+
+  selectedLocation: ILocation;
   selectedLocationSubscription: any;
 
-  movies: movie[] = [
-    {id: 0, name: "Avengers", releaseDate: "2021-07-25", endingDate: "2021-08-25", status: 0, apiid: 0, poster: "https://i.pinimg.com/originals/1f/26/d3/1f26d3c52508b1a46235e0cf7087ab65.jpg", languages: ['telugu', 'hindi', 'english']}
-  ];
-  moviesList: movie[];
-  _filters: filters;
+  movies: IMovie[] = [];
+  filters: filters;
 
   capitalizeFirstLetter(str: string) {
     return str.charAt(0).toUpperCase() + str.slice(1);
   }
 
-  constructor(private _locationService: LocationService) { 
-    if(this._locationService.currentLocation) this.selectedLocation = this.capitalizeFirstLetter(this._locationService.currentLocation);
+  constructor(private router: Router, private _locationService: LocationService, private movieService: MoviesService) {
+    if (this._locationService.currentLocation) this.selectedLocation = this._locationService.currentLocation;
     this.selectedLocationSubscription = _locationService.currentLocationChange.subscribe(value => {
-      this.selectedLocation = this.capitalizeFirstLetter(value);
+      this.selectedLocation = value;
+      this.initializeMovies();
     })
   }
   
   ngOnInit(): void {
-    this.moviesList = [];
-    this._filters = {date: "2021-07-25", languages: ['telugu', 'hindi'], status: 0};
-    this.initializeMovies();
+    this.filters = { date: "2021-07-25", languages: ['Telugu', 'Hindi'], status: 0 };
+    if (this.selectedLocation) this.initializeMovies();
+    else this._locationService.updatePickLocationChange(true);
   }
 
-  initializeMovies(){
-    this.movies.forEach(el => {
-      if(el.status == this._filters.status){
-        this.moviesList.push(el);
-      }
-    })
+  initializeMovies() {
+    this.movieService.getMoviesByLocation(this.selectedLocation.id).subscribe(result => {
+      this.movies = result;
+    }, error => console.error(error));
   }
 
+  onClick() {
+    this.movies = this.movies.filter(m => m.languages.indexOf(this.filters.languages[1]) >= 0 && m.status == this.filters.status)
+  }
 }
 
-interface movie{
-  id: number,
-  name: string,
-  releaseDate: string,
-  endingDate: string,
-  status: Status,
-  apiid: number,
-  poster: string,
-  languages: string[]
-};
+
 
 interface filters{
   date: string,

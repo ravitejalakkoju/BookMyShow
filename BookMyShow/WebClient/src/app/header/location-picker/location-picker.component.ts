@@ -1,6 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { Router } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
+import { LocationService } from '../../services/location.service';
+
+import { ILocation } from '../../Interfaces/ILocation';
 
 @Component({
   selector: 'app-location-picker',
@@ -9,46 +11,39 @@ import { HttpClient } from '@angular/common/http';
 })
 export class LocationPickerComponent implements OnInit {
 
-  @Input() cityName: string;
+  @Input() cityDetails: ILocation;
 
   @Output() toggleLocationPicker: EventEmitter<any> = new EventEmitter();
   @Output() citySelector: EventEmitter<any> = new EventEmitter();
-  
-  selectedCity: string = null
-  viewCities: boolean = false 
 
-  locations: Location[] = [];
+  selectedCity: ILocation;
+  viewCities: boolean = false
 
-  constructor(private router: Router, http: HttpClient) {
-    http.get<Location[]>('/' + 'api/locations').subscribe(result => {
-      this.locations = result;
-    }, error => console.error(error));
+  locations: ILocation[] = [];
+
+  constructor(private router: Router, private locationService: LocationService) {
   }
 
-  toggleViewCities(){
+  toggleViewCities() {
     this.viewCities = !this.viewCities
   }
 
-  isSelected(value: string){
-    this.selectedCity = value
-    this.router.navigate(['explore', value, 'movies']);
+  isSelected(id: number, name: string) {
+    this.selectedCity = { id: id, name: name };
+    this.router.navigate(['explore', name.toLowerCase(), 'movies']);
     this.citySelector.emit(this.selectedCity)
   }
 
-  isChecked(value: string){
-    if(this.selectedCity == value) return true;
-    else return false;
-  }
-
   ngOnInit(): void {
-    this.selectedCity = this.cityName
+    this.selectedCity = this.cityDetails;
+    this.getLocations();
   }
 
+  getLocations() {
+    this.locationService.getLocations().subscribe(result => {
+      this.locations = result;
+    }, error => console.error(error));;
+  }
 }
 
-interface Location {
-  id: BigInteger;
-  name: string;
-  stateID: BigInteger;
-  typeID: BigInteger;
-}
+

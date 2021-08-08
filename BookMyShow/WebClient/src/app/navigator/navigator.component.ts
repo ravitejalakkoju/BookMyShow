@@ -17,7 +17,7 @@ export class NavigatorComponent implements OnInit {
 
   constructor(private _locationService: LocationService) { 
     this._subscription = this._locationService.currentLocationChange.subscribe((value) => {
-      this.moviesRouterLink = 'explore/' + value + '/movies'
+      this.moviesRouterLink = 'explore/' + value.name.toLowerCase() + '/movies'
     })
   }
 

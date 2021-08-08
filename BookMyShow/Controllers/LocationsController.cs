@@ -6,8 +6,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 using BookMyShow.Services;
-using BookMyShow.Models;
-using BookMyShow.Services;
+using BookMyShow.Models.DTO;
 
 namespace BookMyShow.Controllers
 {

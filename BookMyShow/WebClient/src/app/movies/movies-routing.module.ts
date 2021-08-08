@@ -9,7 +9,7 @@ const routes: Routes = [
   {path: '', component: MoviesComponent, pathMatch: 'full'},
   {path: ':movieId', component: MovieDetailsComponent},
   {path: ':movieId/theatres', component: TheatresComponent, children: [
-    {path: ':theatreId', component: SeatSelectionComponent}
+    {path: ':theatreId/screen/:screenId', component: SeatSelectionComponent}
   ]}
 ];
 

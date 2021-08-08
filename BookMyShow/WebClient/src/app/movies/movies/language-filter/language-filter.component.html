@@ -10,28 +10,10 @@
         <button class="small bg-transparent border-0 text-secondary clear-link" (click)="reset()">Clear</button>
     </div>
     <ul class="list-unstyled list-inline mt-4" *ngIf="showLanguageSelector">
-        <li class="list-inline-item mx-1 mt-2 mb-3">
+        <li *ngFor="let lang of languages" class="list-inline-item mx-1 mt-2 mb-3">
             <label>
-                <input type="checkbox" name="language" value="telugu" (change)="isSelected($event.target)" [checked]="isChecked('telugu')"/>
-                <span class="py-2 px-3 border text-danger">Telugu</span>
-            </label>
-        </li>
-        <li class="list-inline-item mx-1 mt-2 mb-3">
-            <label>
-                <input type="checkbox" name="language" value="hindi" (change)="isSelected($event.target)" [checked]="isChecked('hindi')"/>
-                <span class="py-2 px-3 border text-danger">Hindi</span>
-            </label>
-        </li>
-        <li class="list-inline-item mx-1 mt-2 mb-3">
-            <label>
-                <input type="checkbox" name="language" value="english" (change)="isSelected($event.target)" [checked]="isChecked('english')"/>
-                <span class="py-2 px-3 border text-danger">English</span>
-            </label>
-        </li>
-        <li class="list-inline-item mx-1 mt-2 mb-3">
-            <label>
-                <input type="checkbox" name="language" value="tamil" (change)="isSelected($event.target)" [checked]="isChecked('tamil')"/>
-                <span class="py-2 px-3 border text-danger">Tamil</span>
+                <input type="checkbox" name="language" value="{{lang.name}}" (change)="isSelected($event.target)" [checked]="isChecked(lang.name)"/>
+                <span class="py-2 px-3 border text-danger">{{lang.name}}</span>
             </label>
         </li>
     </ul>

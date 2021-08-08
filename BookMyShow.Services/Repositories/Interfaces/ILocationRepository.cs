@@ -8,12 +8,12 @@ using BookMyShow.Entities;
 
 namespace BookMyShow.Services.Repositories.Interfaces
 {
-    public interface ILocationRepository
+    public interface ILocationRepository: IRepository<Location>
     {
-        public Location Get(int id);
-
         public IEnumerable<Location> GetAll();
 
-        public IEnumerable<Location> GetAll(Expression<Func<IEntity, bool>> filter = null);
+        public LocationView GetView(int locationId);
+
+        public IEnumerable<LocationView> GetAllViews();
     }
 }

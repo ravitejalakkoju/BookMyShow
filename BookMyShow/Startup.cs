@@ -12,7 +12,7 @@ using BookMyShow.Entities;
 using BookMyShow.Services.Repositories.Interfaces;
 using BookMyShow.Services.Repositories.Mock;
 using BookMyShow.Services.AutoMapperProfiles;
-using BookMyShow.Services;
+using System;
 
 namespace BookMyShow
 {
@@ -40,15 +40,22 @@ namespace BookMyShow
 
 
             //MockRespository
-            services.AddScoped<ILocationRepository, MockLocationRepository>();
+            services.AddScoped<ILocationWrapper, MockLocationWrapper>();
+            services.AddScoped<IMovieWrapper, MockMovieWrapper>();
+            services.AddScoped<ITheatreWrapper, MockTheatreWrapper>();
 
             //Automapper DI
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
             services.AddAutoMapper(typeof(LocationProfile));
 
             //RegisterServices
             services.AddScoped<LocationService>();
+            services.AddScoped<MovieService>();
+            services.AddScoped<TheatreService>();
+            services.AddScoped<ScreenService>();
+            services.AddScoped<SeatService>();
 
-            //services.AddCors();
+            services.AddCors();
 
             services.AddSpaStaticFiles(configuration =>
             {
@@ -71,9 +78,9 @@ namespace BookMyShow
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            /* app.UseCors(options => {
-                options.WithOrigins("http://localhost:63402").AllowAnyMethod().AllowAnyHeader();
-            }); */
+            app.UseCors(options => {
+                options.WithOrigins("http://localhost:4200").AllowAnyMethod().AllowAnyHeader();
+            });
             app.UseSimpleInjector(container);
 
             if (env.IsDevelopment())

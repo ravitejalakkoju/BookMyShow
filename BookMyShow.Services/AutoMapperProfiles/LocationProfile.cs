@@ -4,7 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
-using BookMyShow.Models;
+using BookMyShow.Models.DTO;
+using BookMyShow.Entities;
 
 namespace BookMyShow.Services.AutoMapperProfiles
 {
@@ -12,8 +13,12 @@ namespace BookMyShow.Services.AutoMapperProfiles
     {
         public LocationProfile()
         {
-            CreateMap<Location, LocationDTO>();
-            CreateMap<IEnumerable<Location>, IEnumerable<LocationDTO>>();
+            CreateMap<Location, LocationDTO>()
+                .ForSourceMember(x => x.StateID, opt => opt.DoNotValidate());
+
+            CreateMap<LocationView, LocationDTO>()
+                .ForSourceMember(x => x.StateID, opt => opt.DoNotValidate())
+                .ForSourceMember(x => x.StateName, opt => opt.DoNotValidate());
         }
     }
 }

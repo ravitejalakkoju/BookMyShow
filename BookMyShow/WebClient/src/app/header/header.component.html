@@ -21,7 +21,7 @@
         </div>
         <ul class="navbar-nav flex-grow d-flex align-items-center">
           <li class="nav-item">
-            <button class="nav-link bg-transparent small text-light" (click)="toggleLocationPicker()">{{selectedCity}} <i class="fas fa-caret-down ms-1"></i></button>
+            <button class="nav-link bg-transparent small text-light" (click)="toggleLocationPicker()">{{selectedCity.name}} <i class="fas fa-caret-down ms-1"></i></button>
           </li>
           <ng-container *ngIf="!isLogged; then notLogged else logged"></ng-container>
           <ng-template #notLogged>
@@ -46,6 +46,6 @@
       </div>
     </div>
   </nav>
-  <app-location-picker [cityName]="selectedCity" *ngIf="locationPicker" (toggleLocationPicker)="toggleLocationPicker($event)" (citySelector)="selectCity($event)"></app-location-picker>
+  <app-location-picker [cityDetails]="selectedCity" *ngIf="locationPicker" (toggleLocationPicker)="toggleLocationPicker($event)" (citySelector)="selectCity($event)"></app-location-picker>
   <app-options *ngIf="options" (toggleOptions)="toggleOptions($event)"></app-options>
 </header>

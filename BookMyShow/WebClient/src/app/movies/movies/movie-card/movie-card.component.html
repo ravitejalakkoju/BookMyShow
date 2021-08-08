@@ -1,5 +1,18 @@
-<a [routerLink]="['/explore/hyderabad/movies', movie.id]" class="text-dark text-decoration-none">
-    <img [src]="movie.poster" width="175" class="rounded my-3">
-    <h5>{{movie.name}}</h5>
-    <span class="text-secondary">{{movie.languages}}</span>
+<a [routerLink]="[movie.id]" class="text-dark text-decoration-none">
+  <img src="http://img.omdbapi.com/?i={{movie.apiid}}&apikey=dbaf7dd7" width="175" class="rounded my-3"> 
+  <h5>{{movie.name}}</h5>
+  <div class="text-secondary text-wrap wrap">
+    <ul class="list-unstyled  cast-list">
+      <li *ngFor="let lang of movie.languages.split(',')" class="list-inline-item text-center p-0 px-1 m-1 btn btn-primary small">
+        <span class="small">{{lang}}</span>
+      </li>
+    </ul>
+  </div>
+  <div class="text-secondary text-wrap wrap">
+    <ul class="list-unstyled  cast-list">
+      <li *ngFor="let genre of movie.genres.split(',')" class="list-inline-item text-center p-0 px-1 m-1 btn btn-success small">
+        <span class="small">{{genre}}</span>
+      </li>
+    </ul>
+  </div>
 </a>

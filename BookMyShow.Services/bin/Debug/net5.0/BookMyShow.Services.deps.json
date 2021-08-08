@@ -1696,6 +1696,10 @@
         }
       },
       "BookMyShow.Models/1.0.0": {
+        "dependencies": {
+          "PetaPoco": "5.1.306",
+          "PetaPoco.NetCore": "1.0.1"
+        },
         "runtime": {
           "BookMyShow.Models.dll": {}
         }

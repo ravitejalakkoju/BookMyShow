@@ -1,4 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { IScreen } from '../../Interfaces/IScreen';
+import { ISeat } from '../../Interfaces/ISeat';
+import { MoviesService } from '../../services/movies.service';
+import { ScreensService } from '../../services/screens.service';
+import { SeatService } from '../../services/seat.service';
+import { TheatresService } from '../../services/theatres.service';
 
 @Component({
   selector: 'app-seat-selection',
@@ -7,44 +14,59 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SeatSelectionComponent implements OnInit {
 
-  levels: number;
-  seatsPerLevel: number;
+  login: boolean = true;
 
-  seatBooked: boolean[][];
-  selectedSeats: string[] = [];
+  theatreName: string;
+  movieName: string;
+  screen: IScreen;
+  seats: ISeat[] = [];
+
+  selectedSeats: ISeat[] = [];
   disableBooking: boolean = false;
 
-  constructor() { }
+  constructor(private route: ActivatedRoute,
+    private theatreService: TheatresService,
+    private movieService: MoviesService,
+    private screenService: ScreensService) { }
 
   ngOnInit(): void {
-    this.levels = 10
-    this.seatsPerLevel = 20
-    this.seatBooked = [];
+    let t: any = this.route.snapshot.paramMap.get('theatreId');
+    this.theatreService.GetTheatre(t).subscribe(result => {
+      this.theatreName = result.name
+    }, error => console.error(error))
 
-    for (let level = 0; level < this.levels; level++) {
-      this.seatBooked[level] = []
-      for (let seat = 0; seat < this.seatsPerLevel; seat++) {
-        this.seatBooked[level][seat] = false;
-      }      
-    }
-    
+
+    let s: any = this.route.snapshot.paramMap.get('screenId');
+    this.screenService.GetScreen(s).subscribe(result => {
+      this.screen = result;
+      console.log(result);
+      this.movieService.getMovie(result.movieID).subscribe(result => {
+        this.movieName = result.name
+      }, error => console.error(error))
+
+      this.screenService.GetSeatsInScreen(result.id).subscribe(result => {
+        this.seats = result
+      }, error => console.error(error))
+
+      console.log(this.screen);
+    }, error => console.error(error))
   }
 
-  bookSeat(seat: any){
-    if(this.selectedSeats.length < 5){
-      let position: any = seat.split(',');
-      if(!this.seatBooked[this.levels-position[0]-1][position[1]]) { 
-        this.seatBooked[this.levels-position[0]-1][position[1]] = true;
-        let selectedSeat: string = this.numToChar(this.levels-position[0]-1) + '' + position[1];
-        this.selectedSeats.push(selectedSeat);
+  toggleSeatSelection(seatCode: string) {
+    let seat: ISeat = this.seats.find(s => s.code == seatCode);
+    if (this.selectedSeats.length < 5) {
+      if (seat.active == 1) {
+        seat.active = 0;
+        this.selectedSeats.push(seat)
       } else {
-        this.seatBooked[this.levels-position[0]-1][position[1]] = false;
-        let selectedSeat: string = this.numToChar(this.levels-position[0]-1) + '' + position[1];
-        this.selectedSeats = this.selectedSeats.filter(el => el != selectedSeat);
+        seat.active = 1;
+        this.selectedSeats = this.selectedSeats.filter(s => s != seat)
       }
-    } else {
-      this.disableBooking = true;
     }
+  }
+
+  confirmBooking() {
+
   }
 
   numToChar(num: number){

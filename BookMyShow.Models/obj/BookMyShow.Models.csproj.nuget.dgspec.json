@@ -45,6 +45,16 @@
       "frameworks": {
         "net5.0": {
           "targetAlias": "net5.0",
+          "dependencies": {
+            "PetaPoco": {
+              "target": "Package",
+              "version": "[5.1.306, )"
+            },
+            "PetaPoco.NetCore": {
+              "target": "Package",
+              "version": "[1.0.1, )"
+            }
+          },
           "imports": [
             "net461",
             "net462",

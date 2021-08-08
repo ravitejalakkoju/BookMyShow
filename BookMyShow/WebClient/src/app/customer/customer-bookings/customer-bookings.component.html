@@ -3,12 +3,12 @@
         <h6 class="heading bg-dark p-2 text-white rounded">{{ "Booking History" | uppercase }}</h6>
         <ul class="list-unstyled">
             <router-outlet></router-outlet>
-            <li class="booking p-3 rounded my-2 bg-white">
+            <li *ngFor="let booking of customerBookings" class="booking p-3 rounded my-2 bg-white">
                 <div class="d-flex justify-content-between">
                     <div class="">
                         <div class="booking-id list-inline">
                             <h6 class="list-inline-item">Booking ID: </h6>
-                            <span class="list-inline-item">143247423482748723</span>
+                            <span class="list-inline-item">{{booking.id}}</span>
                         </div>
                         <div class="list-inline">
                             <h6 class="list-inline-item">Movie: </h6>
@@ -16,12 +16,12 @@
                         </div>
                         <div class="list-inline">
                             <h6 class="list-inline-item">Date: </h6>
-                            <span class="list-inline-item">{{"2021-07-26" | uppercase}}</span>
+                            <span class="list-inline-item">{{booking.time.hours + ':' + booking.time.minutes}}</span>
                         </div>
                     </div>
                     <div class="expand">
-                        <a [routerLink]="['0']" *ngIf="currentId != 0" class='text-dark'><i class="fas fa-eye-slash"></i></a>
-                        <a [routerLink]="['../bookings']" (click)="nullifyCurrentId()" *ngIf="currentId == 0" class='text-dark'><i class="fas fa-eye"></i></a>
+                        <a [routerLink]="[booking.id]" *ngIf="currentId != booking.id" class='text-dark'><i class="fas fa-eye-slash"></i></a>
+                        <a [routerLink]="['../bookings']" (click)="nullifyCurrentId()" *ngIf="currentId == booking.id" class='text-dark'><i class="fas fa-eye"></i></a>
                     </div>
                 </div>
             </li>

@@ -17,7 +17,13 @@ export class HomeComponent implements OnInit {
     if(this._locationService.currentLocation == null){ 
       this._locationService.updatePickLocationChange(true);
     }
-    this._router.navigate(['explore/' + this._locationService.currentLocation + '/movies']);
+    if (this._locationService.currentLocation) this._router.navigate(['explore/' + this._locationService.currentLocation.name.toLowerCase() + '/movies']);
+  }
+
+  goToMovies() {
+    if (this._locationService.currentLocation == null) {
+      this._locationService.updatePickLocationChange(true);
+    }
   }
 
 }

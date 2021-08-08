@@ -9,12 +9,16 @@
             </ul>
         </div>
         <div class="col-12 col-md-9">
-            <h4><b>Movies in {{selectedLocation}}</b></h4>
-            <ul class="small list-unstyled list-inline text-dark row col-12">
-                <li *ngFor="let movie of moviesList" class="list-inline-item text-left col-6 col-md-3 m-0 px-2 mb-3">
-                    <app-movie-card [movie]="movie"></app-movie-card>
-                </li>
+            <h4 *ngIf="selectedLocation"><b>Movies in {{capitalizeFirstLetter(selectedLocation.name)}}</b></h4>
+            <button (click)="onClick()">Filter</button>
+            <ul *ngIf="movies" class="small list-unstyled list-inline text-dark row col-12">
+              <li *ngFor="let movie of movies" class="list-inline-item text-left col-6 col-md-3 m-0 px-2 mb-3">
+                <app-movie-card [movie]="movie"></app-movie-card>
+              </li>
             </ul>
+          <div *ngIf="movies.length == 0">
+            No theatres are open right now
+          </div>
         </div>
     </div>
 </div>

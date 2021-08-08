@@ -21,17 +21,7 @@ namespace BookMyShow.Services.Repositories.Mock
 
         public Location Get(int id)
         {
-            return _context.SingleOrDefault<Location>(id);
-        }
-
-        public IEnumerable<Location> GetAll(Expression<Func<IEntity, bool>> filter = null)
-        {
-            Sql query = Sql.Builder
-                        .Select("*")
-                        .From("Locations")
-                        .Where(filter.ToString());
-
-            return _context.Query<Location>(query);
+            throw new NotImplementedException();
         }
 
         public IEnumerable<Location> GetAll()
@@ -40,7 +30,22 @@ namespace BookMyShow.Services.Repositories.Mock
                         .Select("*")
                         .From("Location");
 
-            return _context.Query<Location>(query);
+            return _context.Query<LocationView>(query);
         }
+
+        public LocationView GetView(int id)
+        {
+            return _context.SingleOrDefault<LocationView>(id);
+        }
+
+        public IEnumerable<LocationView> GetAllViews()
+        {
+            Sql query = Sql.Builder
+                        .Select("*")
+                        .From("Locations");
+
+            return _context.Query<LocationView>(query);
+        }
+
     }
 }

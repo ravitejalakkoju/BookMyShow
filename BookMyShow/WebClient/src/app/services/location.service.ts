@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 
 import { Observable, of, Subject} from 'rxjs';
-import { ActivatedRoute } from '@angular/router'
+import { HttpClient } from '@angular/common/http';
+import { Locator } from 'protractor';
 
 @Injectable({
   providedIn: 'root'
@@ -9,15 +10,15 @@ import { ActivatedRoute } from '@angular/router'
 
 export class LocationService {
 
-  currentLocation: string = null;
-  currentLocationChange: Subject<string> = new Subject<string>();
+  currentLocation: Location = null;
+  currentLocationChange: Subject<Location> = new Subject<Location>();
 
   pickLocation: boolean = false;
   pickLocationChange: Subject<boolean> = new Subject<boolean>();
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
-  updateCurrentLocation(location: string){
+  updateCurrentLocation(location: Location) {
     this.currentLocation = location;
     this.currentLocationChange.next(this.currentLocation);
   }
@@ -26,9 +27,14 @@ export class LocationService {
     this.pickLocation = choice;
     this.pickLocationChange.next(this.pickLocation);
   }
-  
-  getLocations(){
-    let locations: string[] = ["Amritsar", 'Ghatkeshwar', 'Hyderabad'];
-    return locations;
+
+  getLocations() {
+    return this.http.get<Location[]>('https://localhost:44352/' + 'api/locations');
   }
+
+}
+
+interface Location {
+  id: number;
+  name: string;
 }
