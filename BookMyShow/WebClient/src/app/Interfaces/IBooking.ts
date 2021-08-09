@@ -1,9 +1,7 @@
-import { Time } from "@angular/common";
-
 export interface IBooking {
   id: number,
   amount: number,
-  dateTime: Time,
+  dateTime: Date,
   status: number,
   customerID: number
 }

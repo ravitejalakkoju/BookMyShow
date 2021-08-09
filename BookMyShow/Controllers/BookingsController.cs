@@ -3,7 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-
+using BookMyShow.Services;
+using BookMyShow.Models.DTO;
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace BookMyShow.Controllers
@@ -12,36 +13,32 @@ namespace BookMyShow.Controllers
     [ApiController]
     public class BookingsController : ControllerBase
     {
+        private BookingService _bookingService;
+
+        public BookingsController(BookingService bookingService)
+        {
+            _bookingService = bookingService;
+        }
+
         // GET: api/<BookingsController>
         [HttpGet]
-        public IEnumerable<string> Get()
+        public IEnumerable<BookingByCustomerDTO> GetByCustomer(int customerId)
         {
-            return new string[] { "value1", "value2" };
+            return _bookingService.GetBookingsByCustomer(customerId);
         }
 
         // GET api/<BookingsController>/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public BookingByCustomerDTO Get(int id)
         {
-            return "value";
+            return _bookingService.GetBookingDetails(id);
         }
 
         // POST api/<BookingsController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public Object Post([FromBody] BookingDTO bookingDto)
         {
-        }
-
-        // PUT api/<BookingsController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
-        // DELETE api/<BookingsController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
+            return _bookingService.CreateBooking(bookingDto);
         }
     }
 }

@@ -12,5 +12,7 @@ namespace BookMyShow.Entities
         public string Code { get; set; }
 
         public int Active { get; set; }
+
+        public int Blocked { get; set; }
     }
 }

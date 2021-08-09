@@ -9,8 +9,10 @@ namespace BookMyShow.Services.Repositories.Interfaces
 {
     public interface ICustomerRepository
     {
-        public Customer Get(int customerId);
+        public CustomerView Get(int customerId);
 
         public void Insert(Customer customer);
+
+        public void Update(Customer customer);
     }
 }

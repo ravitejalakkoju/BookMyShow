@@ -1,4 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, Validators } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
+import { ICustomer } from '../../Interfaces/ICustomer';
+import { CustomersService } from '../../services/customers.service';
+import { CustomerFormValidatorService } from '../../services/customer-form-validator.service';
 
 @Component({
   selector: 'app-customer-profile-form',
@@ -7,9 +12,71 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CustomerProfileFormComponent implements OnInit {
 
-  constructor() { }
+  customerDetails: ICustomer;
+
+  customerForm = this.fb.group({
+    'id': ['', Validators.required],
+    'firstName': ['', Validators.required],
+    'lastName': [''],
+    'email': ['', [Validators.required, this.formValidator.patternValidator(/[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}/)]],
+    'password': ['', Validators.required],
+    'displayPicture': [''],
+    'status': ['', Validators.required],
+    'creationDate': ['', Validators.required]
+  });
+
+  customerId: number;
+
+  constructor(private route: ActivatedRoute,
+    private customerService: CustomersService,
+    private fb: FormBuilder,
+    private formValidator: CustomerFormValidatorService) {
+    this.route.parent.params.subscribe(
+      params => {
+        this.customerId = params.id;
+        this.customerService.getCustomerDetails(this.customerId).subscribe(result => {
+          this.customerDetails = result
+          this.customerForm.setValue({
+            id: result.id,
+            firstName: result.firstName,
+            lastName: result.lastName,
+            email: result.email,
+            password: result.password,
+            displayPicture: result.displayPicture,
+            status: Status[result.status],
+            creationDate: new Date(result.creationDate).toUTCString()
+          })
+        }, error => console.log(error))
+      }
+    );
+  }
 
   ngOnInit(): void {
   }
 
+  get firstName() {
+    return this.customerForm.get('firstName')
+  }
+
+  get email() {
+    return this.customerForm.get('email')
+  }
+
+  get password() {
+    return this.customerForm.get('password')
+  }
+
+  onSubmit() {
+    let customer: any = this.customerForm.value;
+    customer['status'] = Status[customer['status']]
+    customer['creationDate'] = this.customerDetails.creationDate;
+    this.customerService.updateCustomer(customer as ICustomer).subscribe(result => {
+    }, error => console.error(error))
+  }
+
+}
+
+enum Status {
+  Regular = 0,
+  Premium
 }

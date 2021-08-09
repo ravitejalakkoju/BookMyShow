@@ -15,5 +15,8 @@ namespace BookMyShow.Models.DTO
         public string Code { get; set; }
 
         public int Active { get; set; }
+
+        public int Blocked { get; set; }
+
     }
 }

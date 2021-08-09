@@ -18,7 +18,7 @@
         <ul class="list-unstyled">
           <li *ngFor="let seat of seats.reverse(); let i = index" class="seat-list list-inline-item border-bottom p-0 pb-1 m-0" [ngClass]="{'ten-column-list': screen.seatsPerLevel == 10, 'twenty-column-list': screen.seatsPerLevel == 20}">
             <span class="position-absolute level"><strong class="small text-secondary">{{seat.code.charAt(0) | uppercase}}</strong></span>
-            <button class="border-0 bg-transparent" [isDisabled]="disableBooking" value="{{seat.code}}" (click)="toggleSeatSelection(seat.code)">
+            <button class="border-0 bg-transparent" [disabled]="seat.blocked == 1 || disableBooking" value="{{seat.code}}" (click)="toggleSeatSelection(seat.code)">
               <img class="seat" *ngIf="seat.active==1" width="25" src="https://cdn.iconscout.com/icon/premium/png-256-thumb/theatre-seat-917571.png">
               <img class="seat" *ngIf="seat.active==0" width="25" src="https://cdn.iconscout.com/icon/premium/png-256-thumb/theatre-seat-1-917578.png">
             </button>
@@ -36,7 +36,7 @@
       </div>
       <div class="p-3">
         <a *ngIf="!login" [routerLink]="['/user/customer/login']" class="text-decoration-none payment rounded-pill fw-bold py-3 px-4 border-0 bg-danger">Proceed to Payment</a>
-        <a *ngIf="login" (click)="confirmBooking()" [routerLink]="['/user/customer/1/bookings/1']" class="text-decoration-none payment rounded-pill fw-bold py-3 px-4 border-0 bg-danger">Proceed to Payment</a>
+        <a *ngIf="login" (click)="confirmBooking()" class="text-decoration-none payment rounded-pill fw-bold py-3 px-4 border-0 bg-danger">Proceed to Payment</a>
       </div>
     </div>
   </div>

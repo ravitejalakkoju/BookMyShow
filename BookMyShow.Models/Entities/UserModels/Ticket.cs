@@ -6,11 +6,8 @@ namespace BookMyShow.Entities
     [TableName("Ticket")]
     public class Ticket: IEntity
     {
+        [ResultColumn]
         public int ID { get; set; }
-
-        public DateTime Date { get; set; }
-
-        public DateTime ShowTime { get; set; }
 
         public int SeatID { get; set; }
 

@@ -1,12 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using PetaPoco.NetCore;
 
-namespace BookMyShow.Models.DTO
+namespace BookMyShow.Entities
 {
-    public class CustomerDTO
+    [TableName("Customer")]
+    public class CustomerView : IEntity
     {
         public int ID { get; set; }
 

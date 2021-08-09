@@ -6,6 +6,7 @@ namespace BookMyShow.Entities
     [TableName("Customer")]
     public class Customer: IEntity
     {
+        [ResultColumn]
         public int ID { get; set; }
 
         public string FirstName { get; set; }
@@ -20,6 +21,7 @@ namespace BookMyShow.Entities
 
         public int Status { get; set; }
 
+        [ResultColumn]
         public DateTime CreationDate { get; set; }
     }
 }

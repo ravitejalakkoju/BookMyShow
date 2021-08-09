@@ -12,5 +12,7 @@ namespace BookMyShow.Services.Repositories.Interfaces
         public Ticket Get(int ticketId);
 
         public IEnumerable<Ticket> GetAllPerBooking(int bookingId);
+
+        public void Insert(Ticket ticket);
     }
 }

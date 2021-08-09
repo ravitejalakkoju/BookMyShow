@@ -8,7 +8,7 @@
           </button>
         </li>
         <ul class="position-absolute end-0 list-unstyled me-3 p-2 border-start">
-          <li class="fs-5 text-secondary">{{movie.name | uppercase}}</li>
+          <li *ngIf="movie" class="fs-5 text-secondary">{{movie.name | uppercase}}</li>
           <li class="small fw-bold">{{selectedDate | date: 'fullDate'}}</li>
         </ul>
       </ul>
@@ -22,9 +22,9 @@
             <li *ngFor="let theatre of theatres" class="theatre-list-item text-left p-3 border-bottom">
                 <h5>{{theatre.name}}</h5>
                 <ul class="list-unstyled list-inline mt-3">
-                    <li class="list-inline-item small mx-1">
-                      <a [routerLink]="[theatre.id, 'screen', theatre.screenID]" class="text-decoration-none text-danger border border-danger px-1 rounded-pill">{{theatre.showTime | date:"shortTime"}}</a>
-                    </li>
+                  <li *ngFor="let show of theatre.showTime.split('|'); let index = index" class="list-inline-item small mx-1">
+                    <a [routerLink]="[theatre.id, 'screen', theatre.screenID.toString().split('|')[index]]" class="text-decoration-none text-danger border border-danger px-1 rounded-pill">{{show | date:"shortTime"}}</a>
+                  </li>
                 </ul>
             </li>
         </ul>

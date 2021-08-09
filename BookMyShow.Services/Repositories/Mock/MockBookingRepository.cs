@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using BookMyShow.Services.Repositories.Interfaces;
 using BookMyShow.Entities;
+using PetaPoco.NetCore;
 
 namespace BookMyShow.Services.Repositories.Mock
 {
@@ -17,14 +18,24 @@ namespace BookMyShow.Services.Repositories.Mock
             _context = context;
         }
 
-        public Booking Get(int bookingId)
+        public BookingByCustomer Get(int bookingId)
         {
-            throw new NotImplementedException();
+            return _context.SingleOrDefault<BookingByCustomer>(bookingId);
         }
 
-        public IEnumerable<Booking> GetAllByCustomer(int customerId)
+        public IEnumerable<BookingByCustomer> GetAllByCustomer(int customerId)
         {
-            throw new NotImplementedException();
+            Sql query = Sql.Builder
+                        .Select("*")
+                        .From("BookingByCustomer")
+                        .Where("CustomerID = @0", customerId);
+
+            return _context.Query<BookingByCustomer>(query);
+        }
+
+        public Object Insert(Booking booking)
+        {
+            return _context.Insert("Booking", "ID", true, booking);
         }
     }
 }

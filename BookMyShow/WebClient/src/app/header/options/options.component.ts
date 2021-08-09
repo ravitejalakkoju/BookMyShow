@@ -1,4 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { CustomersService } from '../../services/customers.service';
 
 @Component({
   selector: 'app-options',
@@ -9,11 +10,12 @@ export class OptionsComponent implements OnInit {
 
   @Output() toggleOptions: EventEmitter<any> = new EventEmitter();
   
-  lock: boolean = true;
   hasLogged: boolean = false;
   action: string = (this.hasLogged ? "LogOut" : "LogIn");
 
-  constructor() { }
+  currentCustomer: number = this.customerService.currentCustomerId;
+
+  constructor(private customerService: CustomersService) { }
 
   ngOnInit(): void {
   }

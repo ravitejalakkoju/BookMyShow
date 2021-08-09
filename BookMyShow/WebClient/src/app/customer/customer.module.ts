@@ -7,6 +7,7 @@ import { CustomerAuthFormComponent } from './customer-auth-form/customer-auth-fo
 import { CustomerBookingsComponent } from './customer-bookings/customer-bookings.component';
 import { CustomerBookingDetailsComponent } from './customer-booking-details/customer-booking-details.component';
 import { CustomerProfileFormComponent } from './customer-profile-form/customer-profile-form.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -19,7 +20,8 @@ import { CustomerProfileFormComponent } from './customer-profile-form/customer-p
   ],
   imports: [
     CommonModule,
-    CustomerRoutingModule
+    CustomerRoutingModule,
+    ReactiveFormsModule
   ],
   exports: [
     CustomerProfileComponent

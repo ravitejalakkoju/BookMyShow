@@ -43,10 +43,10 @@ namespace BookMyShow
             services.AddScoped<ILocationWrapper, MockLocationWrapper>();
             services.AddScoped<IMovieWrapper, MockMovieWrapper>();
             services.AddScoped<ITheatreWrapper, MockTheatreWrapper>();
+            services.AddScoped<ICustomerWrapper, MockCustomerWrapper>();
 
             //Automapper DI
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
-            services.AddAutoMapper(typeof(LocationProfile));
 
             //RegisterServices
             services.AddScoped<LocationService>();
@@ -54,6 +54,9 @@ namespace BookMyShow
             services.AddScoped<TheatreService>();
             services.AddScoped<ScreenService>();
             services.AddScoped<SeatService>();
+            services.AddScoped<CustomerService>();
+            services.AddScoped<BookingService>();
+            services.AddScoped<TicketService>();
 
             services.AddCors();
 

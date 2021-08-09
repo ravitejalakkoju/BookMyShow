@@ -1,39 +1,42 @@
 <div class="auth-form p-5 d-flex justify-content-center bg-light">
     <div class="col-12 col-lg-6 bg-white p-5">
         <h4 class="mx-2 my-4"><b>Your Profile</b></h4>
-        <form>
+        <form [formGroup]="customerForm" (ngSubmit)="onSubmit()" novalidate>
             <div class="mb-3 text-secondary row mt-4">
                 <div class="col">
                     <label for="firstName" class="small mx-2">First Name</label>
-                    <input type="text" class="ms-1 col-11 p-1 bg-transparent" id="firstName" aria-describedby="firstNameHelp">
-                    <!-- <div id="firstNameHelp" class="small m-2 text-danger">required</div> -->
+                    <input type="text" class="ms-1 col-11 p-1 bg-transparent" formControlName="firstName" [class.is-invalid]="firstName.invalid && firstName.touched" id="firstName" aria-describedby="firstNameHelp">
+                    <div id="firstNameHelp" class="small m-2 text-danger" [class.d-none]="firstName.valid || firstName.untouched">FirstName is Required*</div>
                 </div>
                 <div class="col">
-                    <label for="firstName" class="small mx-2">Last Name</label>
-                    <input type="text" class="ms-1 col-11 p-1 bg-transparent" id="firstName" aria-describedby="firstNameHelp">
-                    <!-- <div id="firstNameHelp" class="small m-2 text-danger">required</div> -->
+                  <label for="lastName" class="small mx-2">Last Name</label>
+                  <input type="text" class="ms-1 col-11 p-1 bg-transparent" formControlName="lastName" id="lastName" aria-describedby="lastNameHelp">
                 </div>
             </div>
             <div class="mb-3 text-secondary row mt-4">
-                <label for="exampleInputEmail1" class="small mx-2">Email</label>
-                <input type="email" class="ms-3 col-11 p-1 bg-transparent" id="exampleInputEmail1" aria-describedby="emailHelp">
-                <div id="emailHelp" class="small m-2">We'll never share your email with anyone else.</div>
+              <label for="exampleInputEmail1" class="small mx-2">Email</label>
+              <input type="email" class="ms-3 col-11 p-1 bg-transparent" [class.is-invalid]="email.invalid && email.touched" formControlName="email" id="exampleInputEmail1" aria-describedby="emailHelp">
+              <div *ngIf="email.invalid && email.touched" class="col-12">
+                <small *ngIf="email.errors?.required" class="text-danger">Email is required * </small>
+                <small *ngIf="email.errors?.pattern" class="text-danger">Enter in correct pattern [eg., xyz.123_abc@email.com] ! </small>
+              </div>
             </div>
             <div class="mb-3 text-secondary row mt-4">
-            <label for="exampleInputPassword1" class="small mx-2">Password</label>
-            <input type="password" class="ms-3 col-11 p-1 bg-transparent" id="exampleInputPassword1">
+              <label for="exampleInputPassword1" class="small mx-2">Password</label>
+              <input type="password" class="ms-3 col-11 p-1 bg-transparent" formControlName="password" id="exampleInputPassword1">
+              <div id="passwordHelp" class="small m-2 text-danger" [class.d-none]="password.valid || password.untouched">Password is Required*</div>
             </div>
             <div class="mb-3 text-secondary row mt-4">
                 <label for="displayPicture" class="small mx-2">Display Picture</label>
-                <input type="url" class="ms-3 col-11 p-1 bg-transparent" id="displayPicture">
+                <input type="url" class="ms-3 col-11 p-1 bg-transparent" formControlName="displayPicture" id="displayPicture">
             </div>
             <div class="mb-3 text-secondary row mt-4">
                 <label for="status" class="small mx-2">Status</label>
-                <input type="text" class="ms-3 col-11 p-1 bg-transparent text-secondary" id="status" value="Guest" disabled>
+                <input type="text" class="ms-3 col-11 p-1 bg-transparent text-secondary" formControlName="status" id="status" value="Guest" disabled>
             </div>
             <div class="mb-3 text-secondary row mt-4">
                 <label for="creationDate" class="small mx-2">Creation Date</label>
-                <input type="text" class="ms-3 col-11 p-1 bg-transparent text-secondary" id="creationDate" value="2021-07-27" disabled>
+                <input type="text" class="ms-3 col-11 p-1 bg-transparent text-secondary" formControlName="creationDate" id="creationDate" value="2021-07-27" disabled>
             </div>
             <div class="submit-div text-center mt-5 row">
                 <button type="submit" class="btn btn-success col mx-3">Update</button>

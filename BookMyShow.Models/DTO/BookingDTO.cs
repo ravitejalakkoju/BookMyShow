@@ -14,12 +14,8 @@ namespace BookMyShow.Models.DTO
 
         public DateTime DateTime { get; set; }
 
-        public string Status { get; set; }
+        public int Status { get; set; }
 
-        public string PaymentMode { get; set; }
-
-        public string CustomerID { get; set; }
-
-        public List<TicketDTO> Tickets { get; set; }
+        public int CustomerID { get; set; }
     }
 }

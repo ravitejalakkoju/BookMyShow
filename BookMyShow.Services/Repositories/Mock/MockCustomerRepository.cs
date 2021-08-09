@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using BookMyShow.Services.Repositories.Interfaces;
+﻿using BookMyShow.Services.Repositories.Interfaces;
 using BookMyShow.Entities;
 
 namespace BookMyShow.Services.Repositories.Mock
@@ -17,9 +12,9 @@ namespace BookMyShow.Services.Repositories.Mock
             _context = context;
         }
 
-        public Customer Get(int customerId)
+        public CustomerView Get(int customerId)
         {
-            return _context.SingleOrDefault<Customer>(customerId);
+            return _context.SingleOrDefault<CustomerView>(customerId);
         }
 
         public void Insert(Customer customer)
@@ -29,7 +24,7 @@ namespace BookMyShow.Services.Repositories.Mock
 
         public void Update(Customer customer)
         {
-            
+            _context.Update("Customer", "ID", customer, customer.ID);
         }
     }
 }

@@ -3,6 +3,7 @@ import { ActivatedRoute, ActivationStart, Router, RouterOutlet } from '@angular/
 import { Subscription } from 'rxjs';
 import { BookingsService } from 'src/app/services/bookings.service';
 import { IBooking } from '../../Interfaces/IBooking';
+import { IBookingByCustomer } from '../../Interfaces/IBookingByCustomer';
 
 @Component({
   selector: 'app-customer-bookings',
@@ -12,26 +13,43 @@ import { IBooking } from '../../Interfaces/IBooking';
 export class CustomerBookingsComponent implements OnInit {
 
   currentId: number;
+  customerId: number;
   currentIdSubscription: Subscription;
 
-  customerBookings: IBooking[] = [];
+  customerBookings: IBookingByCustomer[] = [];
 
   @ViewChild(RouterOutlet) outlet: RouterOutlet;
 
   constructor(private router: Router,
-    private _bookingsService: BookingsService) {  
-      this.currentId = this._bookingsService.currentId
+    private _bookingsService: BookingsService,
+    private route: ActivatedRoute) {
+    this.currentId = this._bookingsService.currentId
+    this.route.parent.params.subscribe(
+      params => {
+         this.customerId = params.id;
+      }
+    );
     }
 
   ngOnInit(): void {
-    this.router.events.subscribe(e => {
-      if (e instanceof ActivationStart && e.snapshot.outlet === "customer-bookings")
-        this.outlet.deactivate();
-    });
     this._bookingsService.currentIdChange.subscribe(value => {
       this.currentId = value
     })
-    this.customerBookings = this._bookingsService.bookings;
+    this._bookingsService.getBookingsByCustomer(this.customerId).subscribe(result => {
+      this.customerBookings = result;
+    }, error => console.error(error));
+  }
+
+  ngOnChanges(): void {
+
+  }
+
+  compareDate(bookingDateTime: Date) {
+    let bookingDate: Date = new Date(bookingDateTime)
+    let todaysDate: Date = new Date();
+    if (bookingDate.getTime() < todaysDate.getTime()) {
+      return true;
+    } else return false;
   }
 
   nullifyCurrentId(){

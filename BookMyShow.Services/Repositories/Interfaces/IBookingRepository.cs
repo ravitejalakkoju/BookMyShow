@@ -9,8 +9,10 @@ namespace BookMyShow.Services.Repositories.Interfaces
 {
     public interface IBookingRepository
     {
-        public Booking Get(int bookingId);
+        public BookingByCustomer Get(int bookingId);
 
-        public IEnumerable<Booking> GetAllByCustomer(int customerId);
+        public IEnumerable<BookingByCustomer> GetAllByCustomer(int customerId);
+
+        public Object Insert(Booking booking);
     }
 }

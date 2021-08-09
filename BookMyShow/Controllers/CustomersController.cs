@@ -1,87 +1,43 @@
-﻿using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using BookMyShow.Services;
+using BookMyShow.Models.DTO;
+// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace BookMyShow.Controllers
 {
-    public class CustomersController : Controller
+    [Route("api/[controller]")]
+    [ApiController]
+    public class CustomersController : ControllerBase
     {
-        // GET: CustomersController
-        public ActionResult Index()
+        private readonly CustomerService _customerService;
+
+        public CustomersController(CustomerService customerService)
         {
-            return View();
+            _customerService = customerService;
         }
 
-        // GET: CustomersController/Details/5
-        public ActionResult Details(int id)
+        [HttpGet("{id}")]
+        public CustomerDTO Get(int id)
         {
-            return View();
+            return _customerService.GetCustomer(id);
         }
 
-        // GET: CustomersController/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: CustomersController/Create
+        // POST api/<CustomersController>
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public void Post([FromBody] CustomerDTO customerDTO)
         {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            _customerService.CreateCustomer(customerDTO);
         }
 
-        // GET: CustomersController/Edit/5
-        public ActionResult Edit(int id)
+        // PUT api/<CustomersController>/5
+        [HttpPut("{id}")]
+        public void Put(int id, [FromBody] CustomerDTO customerDTO)
         {
-            return View();
-        }
-
-        // POST: CustomersController/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: CustomersController/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: CustomersController/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
+            _customerService.UpdateCustomer(customerDTO);
         }
     }
 }

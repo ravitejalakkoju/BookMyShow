@@ -7,6 +7,7 @@ import { MoviesService } from '../../services/movies.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { LocationService } from '../../services/location.service';
 import { IMovie } from '../../Interfaces/IMovie';
+import { link } from 'fs';
 
 @Component({
   selector: 'app-theatres',
@@ -57,9 +58,34 @@ export class TheatresComponent implements OnInit {
       this.initializeDates();
       this.theatresService.GetTheatresForMovieAtLocation(locationId, movieId).subscribe(result => {
         this.theatres = result
+        this.groups = this.groupBy(this.theatres, "id");
+        this.mergeObjects();
       }, error => console.error(error));
 
     }
   }
 
+  groups: any;
+
+  mergeObjects() {
+    
+    Object.keys(this.groups).map((x, y) => {
+      let newX = this.groups[x][0];
+      for (let t = 1; t < this.groups[x].length; ++t) {
+        newX.screenID += "|" + this.groups[x][t].screenID;
+        newX.showTime += "|" + this.groups[x][t].showTime;
+      }
+    });
+  }
+
+  groupBy: any = (items, key) =>
+    items.reduce(
+      (result, item) => ({
+        ...result,
+        [item[key]]: [...(result[item[key]] || []), item],
+      }),
+      {}
+    );
+
+  
 }
