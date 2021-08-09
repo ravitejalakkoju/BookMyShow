@@ -10,8 +10,8 @@ namespace BookMyShow.Entities
     [TableName("TheatreScreens")]
     public class TheatreView: Theatre
     {
-        public string ScreenID { get; set; }
+        public string ScreenIDs { get; set; }
 
-        public string ShowTime { get; set; }
+        public string ShowTimes { get; set; }
     }
 }

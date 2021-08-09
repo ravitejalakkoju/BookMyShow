@@ -1,8 +1,11 @@
 <div class="location-picker justify-content-center p-5 position-absolute top-0 border w-100 h-100" (click)="this.toggleLocationPicker.emit($event)">
     <div class="location-picker-container border text-center col-md-10 bg-white mt-2 small m-auto" (click)="$event.stopPropagation()">
-        <div class="bg-transparent border m-3 p-2 ps-0">
+        <div class="position-relative bg-transparent border m-3 p-2 ps-0">
             <i class="fas fa-search ms-1 me-4 small text-secondary"></i>
-            <input type="text" class="col-11 border-0 small" placeholder="Search for your city">
+            <input type="text" class="col-11 border-0 small" placeholder="Search for your city" (input)="searchLocation($event.target)">
+              <div *ngIf="locationSearch.length > 0" id="myDropdown" class="dropdown-content w-100">
+                <div *ngFor="let location of locationSearch"><a (click)="isSelected(location.id, location.name)" class="d-flex justify-content-start">{{location.name}}</a></div>                
+              </div>
         </div>
         <span>Popular Cities</span>
         <ul class="list-unstyled list-inline d-flex justify-content-center">

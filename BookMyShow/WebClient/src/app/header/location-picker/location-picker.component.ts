@@ -20,6 +20,7 @@ export class LocationPickerComponent implements OnInit {
   viewCities: boolean = false
 
   locations: ILocation[] = [];
+  locationSearch: ILocation[] = [];
 
   constructor(private router: Router, private locationService: LocationService) {
   }
@@ -43,6 +44,15 @@ export class LocationPickerComponent implements OnInit {
     this.locationService.getLocations().subscribe(result => {
       this.locations = result;
     }, error => console.error(error));;
+  }
+
+  searchLocation(inputStr: any) {
+    this.locationSearch = [];
+    this.locations.forEach(l => {
+      if (l.name.includes(inputStr.value)) {
+        this.locationSearch.push(l);
+      }
+    })
   }
 }
 

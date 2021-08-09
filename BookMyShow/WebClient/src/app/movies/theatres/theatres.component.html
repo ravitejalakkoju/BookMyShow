@@ -22,8 +22,8 @@
             <li *ngFor="let theatre of theatres" class="theatre-list-item text-left p-3 border-bottom">
                 <h5>{{theatre.name}}</h5>
                 <ul class="list-unstyled list-inline mt-3">
-                  <li *ngFor="let show of theatre.showTime.split('|'); let index = index" class="list-inline-item small mx-1">
-                    <a [routerLink]="[theatre.id, 'screen', theatre.screenID.toString().split('|')[index]]" class="text-decoration-none text-danger border border-danger px-1 rounded-pill">{{show | date:"shortTime"}}</a>
+                  <li *ngFor="let showTime of theatre.showTimes.toString().split('|'); let index = index" class="list-inline-item small mx-1">
+                    <a [routerLink]="[theatre.id, 'screen', theatre.screenIDs.toString().split('|')[index]]" class="text-decoration-none border px-1 rounded-pill disabled" [ngClass]="{'border-danger text-danger': checkShowTimeAvailability(showTime), 'border-secondary text-secondary disabled': !checkShowTimeAvailability(showTime)}">{{showTime}}</a>
                   </li>
                 </ul>
             </li>

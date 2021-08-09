@@ -33,7 +33,7 @@ export class MoviesComponent implements OnInit {
   }
   
   ngOnInit(): void {
-    this.filters = { date: "2021-07-25", languages: ['Telugu', 'Hindi'], status: 0 };
+    this.filters = { date: "2021-07-25", languages: ['Kannada', 'Hindi'], status: 1 };
     if (this.selectedLocation) this.initializeMovies();
     else this._locationService.updatePickLocationChange(true);
   }
@@ -45,7 +45,8 @@ export class MoviesComponent implements OnInit {
   }
 
   onClick() {
-    this.movies = this.movies.filter(m => m.languages.indexOf(this.filters.languages[1]) >= 0 && m.status == this.filters.status)
+    this.movies = this.movies.filter(m => m.languages.indexOf(this.filters.languages[0]) >= 0 && m.languages.indexOf(this.filters.languages[1]) >= 0)
+    console.log(this.movies);
   }
 }
 

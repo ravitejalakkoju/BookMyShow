@@ -34,6 +34,12 @@ export class TheatresComponent implements OnInit {
     this.selectedDate = e.value;
   }
 
+  checkShowTimeAvailability(showTime: string) {
+    let date: Date = new Date('1/1/1999 ' + showTime);
+    let currentMinutes = this.currentDate.getHours() * 60 + this.currentDate.getMinutes();
+    let showMinutes = date.getHours() * 60 + date.getMinutes();
+    return showMinutes > currentMinutes;
+  }
 
   constructor(private theatresService: TheatresService,
     private locationService: LocationService,
@@ -58,34 +64,11 @@ export class TheatresComponent implements OnInit {
       this.initializeDates();
       this.theatresService.GetTheatresForMovieAtLocation(locationId, movieId).subscribe(result => {
         this.theatres = result
-        this.groups = this.groupBy(this.theatres, "id");
-        this.mergeObjects();
       }, error => console.error(error));
 
     }
   }
 
-  groups: any;
-
-  mergeObjects() {
-    
-    Object.keys(this.groups).map((x, y) => {
-      let newX = this.groups[x][0];
-      for (let t = 1; t < this.groups[x].length; ++t) {
-        newX.screenID += "|" + this.groups[x][t].screenID;
-        newX.showTime += "|" + this.groups[x][t].showTime;
-      }
-    });
-  }
-
-  groupBy: any = (items, key) =>
-    items.reduce(
-      (result, item) => ({
-        ...result,
-        [item[key]]: [...(result[item[key]] || []), item],
-      }),
-      {}
-    );
 
   
 }

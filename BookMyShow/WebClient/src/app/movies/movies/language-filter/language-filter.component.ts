@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output } from '@angular/core';
 import { MoviesService } from '../../../services/movies.service';
 
 import { ILanguage } from '../../../Interfaces/ILanguage';

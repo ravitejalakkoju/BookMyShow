@@ -15,8 +15,8 @@ namespace BookMyShow.Models.DTO
 
         public int LocationID { get; set; }
 
-        public string ScreenID { get; set; }
+        public string ScreenIDs { get; set; }
 
-        public string ShowTime { get; set; }
+        public string ShowTimes { get; set; }
     }
 }

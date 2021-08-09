@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import {Location} from '@angular/common';
+import { MoviesService } from '../services/movies.service';
+import { LocationService } from '../services/location.service';
+import { IMovie } from '../Interfaces/IMovie';
+import { Router } from '@angular/router';
+import { ILocation } from '../Interfaces/ILocation';
 
 @Component({
   selector: 'app-search',
@@ -8,19 +13,23 @@ import {Location} from '@angular/common';
 })
 export class SearchComponent implements OnInit {
 
-  movies: string[] = []
+  movies: IMovie[] = []
 
   matchedMovies: string[] = []
+  matchedMovieIDs: number[] = []
   searchValue: string = null
+
+  currentLocation: ILocation = null;
+
+  constructor(private _location: Location,
+    private movieService: MoviesService,
+    private locationService: LocationService,
+    private router: Router) { }
   
-  constructor(private _location: Location) { }
-  
-  initializeMovies(){
-    this.movies.push('Avengers');
-    this.movies.push('Avengers: Age Of Ultron');
-    this.movies.push('Avengers: Infinity War');
-    this.movies.push('Avengers: End Game');
-    this.movies.push('Captain America: Civil War');
+  initializeMovies() {
+    this.movieService.getMoviesByLocation(this.currentLocation.id).subscribe(result => {
+      this.movies = result;
+    }, error => console.error(error));
   }
 
   boldText(text: string){
@@ -28,8 +37,12 @@ export class SearchComponent implements OnInit {
   }
   search(){
     this.matchedMovies = []
+    this.matchedMovieIDs = []
     this.movies.forEach(movie => {
-      if(movie.includes(this.searchValue) && this.searchValue != '') this.matchedMovies.push(movie.replace(this.searchValue, this.boldText(this.searchValue)))
+      if (movie.name.includes(this.searchValue) && this.searchValue != '') {
+        this.matchedMovies.push(movie.name.replace(this.searchValue, this.boldText(this.searchValue)))
+        this.matchedMovieIDs.push(movie.id)
+      }
     });
   }
 
@@ -38,7 +51,11 @@ export class SearchComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.initializeMovies();
+    if (this.locationService.currentLocation == null) this.router.navigate(['/']);
+    else {
+      this.currentLocation = this.locationService.currentLocation;
+      this.initializeMovies();
+    }
   }
 
 }
