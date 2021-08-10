@@ -10,7 +10,6 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace BookMyShow.Controllers
 {
-    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class CustomersController : ControllerBase
@@ -22,8 +21,8 @@ namespace BookMyShow.Controllers
             _customerService = customerService;
         }
 
-        [HttpGet]
-        public CustomerDTO Get(string email, string password)
+        [HttpGet("{key}")]
+        public CustomerDTO Get(string key, string s)
         {
             switch (s)
             {
@@ -35,6 +34,14 @@ namespace BookMyShow.Controllers
                     return null;
             }
             
+        }
+
+        [HttpGet("GetCustomer")]
+        public CustomerDTO GetDetails(string email, string password)
+        {
+            //string email = HttpContext.User.Identity.Name;
+
+            return  _customerService.GetCustomer(email, password);
         }
 
         // POST api/<CustomersController>

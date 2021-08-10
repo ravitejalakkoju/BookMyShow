@@ -21,6 +21,16 @@ namespace BookMyShow.Services
             _customerWrapper = customerWrapper;
         }
 
+        public CustomerDTO GetCustomer(int id)
+        {
+            return _mapper.Map<CustomerDTO>(_customerWrapper.CustomerRepository.Get(id));
+        }
+
+        public CustomerDTO GetCustomerByEmail(string email)
+        {
+            return _mapper.Map<CustomerDTO>(_customerWrapper.CustomerRepository.GetByEmail(email));
+        }
+
         public CustomerDTO GetCustomer(string email, string password)
         {
             return _mapper.Map<CustomerDTO>(_customerWrapper.CustomerRepository.Get(email, password));

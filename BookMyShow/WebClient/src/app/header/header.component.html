@@ -23,7 +23,7 @@
           <li class="nav-item">
             <button class="nav-link bg-transparent small text-light" (click)="toggleLocationPicker()">{{selectedCity.name}} <i class="fas fa-caret-down ms-1"></i></button>
           </li>
-          <ng-container *ngIf="!isLogged; then notLogged else logged"></ng-container>
+          <ng-container *ngIf="this.loggedCustomer == null; then notLogged else logged"></ng-container>
           <ng-template #notLogged>
             <li class="nav-item mx-2">
               <a class="nav-link bg-danger small text-light p-1 px-3 rounded login" [routerLink]="['user/customer/login']">LogIn</a>
@@ -36,9 +36,10 @@
           </ng-template>
           <ng-template #logged>
             <li class="nav-item" [routerLinkActive]="['active-link']">
-              <button class="nav-link bg-transparent border-0" [routerLink]="['user/customer']" (click)="toggleOptions()">
-                <img src="assets/profile.png" class="rounded-circle border-1" width="25px"/>
-                <span class="ms-2 small text-light">Hi, Guest</span>
+              <button class="nav-link bg-transparent border-0" (click)="toggleOptions()">
+                <img *ngIf="!loggedCustomer.displayPicture" src="assets/profile.png" class="rounded-circle border-1" height="25px" width="25px"/>
+                <img *ngIf="loggedCustomer.displayPicture" [src]="loggedCustomer.displayPicture" class="rounded-circle border-1" height="25px" width="25px"/>
+                <span class="ms-2 small text-light">Hi, {{loggedCustomer.firstName}}</span>
               </button>
             </li>
           </ng-template>

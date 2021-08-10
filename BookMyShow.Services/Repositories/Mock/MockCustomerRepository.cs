@@ -13,10 +13,20 @@ namespace BookMyShow.Services.Repositories.Mock
             _context = context;
         }
 
-        /* public CustomerView Get(int customerId)
+        public CustomerView Get(int customerId)
         {
             return _context.SingleOrDefault<CustomerView>(customerId);
-        }*/
+        }
+
+        public CustomerView GetByEmail(string email)
+        {
+            Sql query = Sql.Builder
+                        .Select("*")
+                        .From("Customer")
+                        .Where("Email=@0", email);
+
+            return _context.SingleOrDefault<CustomerView>(query);
+        }
 
         public CustomerView Get(string email, string password)
         {

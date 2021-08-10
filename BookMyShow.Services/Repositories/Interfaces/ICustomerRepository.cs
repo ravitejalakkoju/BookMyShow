@@ -9,7 +9,9 @@ namespace BookMyShow.Services.Repositories.Interfaces
 {
     public interface ICustomerRepository
     {
-        //public CustomerView Get(int customerId);
+        public CustomerView Get(int customerId);
+
+        public CustomerView GetByEmail(string email);
 
         public CustomerView Get(string email, string password);
 

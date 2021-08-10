@@ -8,7 +8,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using BookMyShow.Services; 
+using BookMyShow.Services;
+using BookMyShow.Models.DTO;
+using System.Security.Claims;
 
 namespace BookMyShow.Handlers
 {
@@ -30,17 +32,37 @@ namespace BookMyShow.Handlers
             if (!Request.Headers.ContainsKey("Authorization"))
                 return AuthenticateResult.Fail("Authorization header was not found");
 
-            var authenticationHeaderValue = AuthenticationHeaderValue.Parse(Request.Headers["Authorization"]);
+            try
+            {
+                var authenticationHeaderValue = AuthenticationHeaderValue.Parse(Request.Headers["Authorization"]);
 
-            var bytes = Convert.FromBase64String(authenticationHeaderValue.Parameter);
+                var bytes = Convert.FromBase64String(authenticationHeaderValue.Parameter);
 
-            string[] credentials = Encoding.UTF8.GetString(bytes).Split(":");
-            string email = credentials[0];
-            string password = credentials[1];
+                string[] credentials = Encoding.UTF8.GetString(bytes).Split(":");
+                string email = credentials[0];
+                string password = credentials[1];
 
+                CustomerDTO customer = _customerService.GetCustomer(email, password);
 
+                if (customer == null)
+                    return AuthenticateResult.Fail("Invalid Username or password");
+                else
+                {
+                    var claims = new[] { new Claim(ClaimTypes.Name, customer.Email) };
+                    var identity = new ClaimsIdentity(claims, Scheme.Name);
+                    var principal = new ClaimsPrincipal(identity);
+                    var ticket = new AuthenticationTicket(principal, Scheme.Name);
 
-            return AuthenticateResult.Fail("Need to Implement");
+                    return AuthenticateResult.Success(ticket);
+                }
+            }
+            catch (Exception)
+            {
+
+                return AuthenticateResult.Fail("Error has occured");
+            }
+
+            return AuthenticateResult.Fail("");
         }
     }
 }

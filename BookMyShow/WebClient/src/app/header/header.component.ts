@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 
 import { LocationService } from '../services/location.service';
 import { ILocation } from '../Interfaces/ILocation';
+import { ICustomer } from '../Interfaces/ICustomer';
+import { CustomersService } from '../services/customers.service';
 
 @Component({
   selector: 'app-header',
@@ -11,20 +13,25 @@ import { ILocation } from '../Interfaces/ILocation';
 export class HeaderComponent implements OnInit {
 
   isExpanded: boolean = false;
-  isLogged: boolean = false;
 
   selectedCity: ILocation = { id: -1, name: "Select City" };
 
   locationPicker: boolean;
   locationPickerSubscription: any;
-  
+
+  loggedCustomer: ICustomer = this.customerService.currentCustomer;
+  loggedCustomerSubscription: any;
+
   options: boolean = false;
 
-  constructor(private _locationService: LocationService) { 
-      this.locationPicker = this._locationService.pickLocation;
-      this.locationPickerSubscription = this._locationService.pickLocationChange.subscribe(value => {
+  constructor(private locationService: LocationService, private customerService: CustomersService) {
+    this.locationPicker = this.locationService.pickLocation;
+    this.locationPickerSubscription = this.locationService.pickLocationChange.subscribe(value => {
         this.locationPicker = value
-      })
+    })
+    this.loggedCustomerSubscription = this.customerService.currentCustomerChange.subscribe(value => {
+      this.loggedCustomer = value
+     })
   }
   
   collapse() {
@@ -37,7 +44,7 @@ export class HeaderComponent implements OnInit {
   
   toggleLocationPicker(){
     this.locationPicker = !this.locationPicker;
-    this._locationService.updatePickLocationChange(this.locationPicker);
+    this.locationService.updatePickLocationChange(this.locationPicker);
   }
 
   toggleOptions(){
@@ -50,12 +57,11 @@ export class HeaderComponent implements OnInit {
 
   selectCity(value: ILocation) {
     this.selectedCity = value;
-    this._locationService.updateCurrentLocation(value);
-    this._locationService.updatePickLocationChange(false);
+    this.locationService.updateCurrentLocation(value);
+    this.locationService.updatePickLocationChange(false);
   }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
 }
 

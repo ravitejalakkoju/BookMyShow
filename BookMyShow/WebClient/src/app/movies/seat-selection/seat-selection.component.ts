@@ -73,7 +73,7 @@ export class SeatSelectionComponent implements OnInit {
   confirmBooking() {
     let booking = {
       amount: this.selectedSeats.length * this.screen.seatPrice,
-      customerID: this.customerService.currentCustomerId
+      customerID: this.customerService.currentCustomer.id
     }
     this.bookingService.createBookingForCustomer(booking as IBooking).subscribe(result => {
       console.log(parseInt(result.toString()));

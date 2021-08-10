@@ -1,6 +1,6 @@
 <div class="options position-absolute top-0 w-100 h-100 d-flex justify-content-end" (click)="this.toggleOptions.emit($event)">
     <div class="options-container col-12 col-sm-6 col-lg-4 bg-white small" (click)="$event.stopPropagation()">
-        <ul class="list-unstyled">
+        <ul *ngIf="currentCustomer" class="list-unstyled">
             <li class="bg-darkblue navbar p-3 fs-5"><b class="text-white">Hey!</b></li>
             <!--<li class="bg-light p-3 options-list-item text-secondary col-12 d-flex justify-content-between" [ngClass]="{'no-hover': lock}">
                 <div>
@@ -13,7 +13,7 @@
                 </ng-template>
             </li>-->
             <li class="bg-light p-3 options-list-item col-12" [ngClass]="{'no-hover': !hasLogged}">
-                <a class="d-flex justify-content-between text-decoration-none text-secondary" (click)="toggleOptions.emit($event)" [routerLink]="['/user/customer/' + currentCustomer + '/bookings']">
+                <a class="d-flex justify-content-between text-decoration-none text-secondary" (click)="toggleOptions.emit($event)" [routerLink]="['/user/customer/' + currentCustomer.id + '/bookings']">
                     <div>
                         <i class="fas fa-history fs-6"></i>
                         <span class="small ms-3 fw-bold">Booking History</span>
@@ -25,7 +25,7 @@
                 </a>
             </li>
             <li class="bg-light p-3 options-list-item col-12" [ngClass]="{'no-hover': !hasLogged}">
-                <a class="d-flex justify-content-between text-decoration-none text-secondary" (click)="toggleOptions.emit($event)" [routerLink]="['/user/customer/' + currentCustomer]">
+                <a class="d-flex justify-content-between text-decoration-none text-secondary" (click)="toggleOptions.emit($event)" [routerLink]="['/user/customer/' + currentCustomer.id]">
                     <div>
                     <i class="fas fa-user-cog fs-6"></i>
                     <span class="small ms-3 fw-bold">Settings</span>
@@ -37,9 +37,13 @@
                 </a>
             </li>
         </ul>
+        <div *ngIf="!currentCustomer">
+          <li class="bg-darkblue navbar p-3 fs-5"><b class="text-white">Hey!</b></li>
+        </div>
         <div class="position-absolute col-12 col-sm-6 col-lg-4 left-0 bottom-0 py-3 bg-light">
             <div class="d-flex justify-content-center">
-                <a (click)="this.toggleOptions.emit($event)" [routerLink]="['user/customer/' + action.toLowerCase()]" class="btn btn-danger col-10 fw-bold">{{action}}</a>
+                <a *ngIf="!hasLogged" (click)="this.toggleOptions.emit($event)" [routerLink]="['user/customer/login']" class="btn btn-danger col-10 fw-bold">LogIn</a>
+                <a *ngIf="hasLogged" (click)="logout($event)" [routerLink]="['user/customer/login']" class="btn btn-danger col-10 fw-bold">LogOut</a>
             </div>
             <span *ngIf="!hasLogged" class="d-flex justify-content-center small">
                 No account ? &nbsp;<a (click)="this.toggleOptions.emit($event)" [routerLink]="['user/customer/signup']">SignUp</a>

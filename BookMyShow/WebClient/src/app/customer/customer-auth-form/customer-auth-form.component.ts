@@ -1,3 +1,4 @@
+import { Icu } from '@angular/compiler/src/i18n/i18n_ast';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -59,12 +60,28 @@ export class CustomerAuthFormComponent implements OnInit {
   onSubmit() {
     let customer: any = this.authForm.value;
     this.submit = true;
-    if (this.authForm.valid) {
-      if (!this.hasAccount) {
+    if (!this.hasAccount) {
+      if (this.authForm.valid) {
         this.customerService.createCustomer(customer as ICustomer).subscribe(result => {
-          if(result) alert(result);
+          if (result) alert(result);
           else this.router.navigate(['user/customer/login']);
         }, error => console.error(error));
+      }
+    } else {
+      this.authForm.patchValue({
+        firstName: "none"
+      });
+      if (this.authForm.valid) {
+        let customer: ICustomer;
+        this.customerService.loginCustomer(this.authForm.value['email'], this.authForm.value['password']).subscribe(result => {
+          customer = result;
+          if (customer) {
+            this.customerService.updateCurrentCustomer(result);
+            this.router.navigate(['user/customer/' + customer.id]);
+          } else {
+            alert("Incorrect UserName or Password");
+          }
+        }, error =>  console.error(error));
       }
     }
         
