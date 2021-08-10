@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using BookMyShow.Entities;
 using BookMyShow.Services.Repositories.Interfaces;
+using PetaPoco.NetCore;
 
 namespace BookMyShow.Services.Repositories.Mock
 {
@@ -20,6 +21,15 @@ namespace BookMyShow.Services.Repositories.Mock
         public IEnumerable<Seat> GetAllInScreen(int screenId)
         {
             return _context.Query<Seat>("select * from Seat where ScreenID = @0", screenId);
+        }
+
+        public IEnumerable<SeatsInScreen> GetAvailableSeatsPerScreen()
+        {
+            Sql query = Sql.Builder
+                        .Select("*")
+                        .From("SeatsInScreen");
+
+            return _context.Query<SeatsInScreen>(query);
         }
     }
 }

@@ -10,5 +10,7 @@ namespace BookMyShow.Services.Repositories.Interfaces
     public interface ISeatRepository
     {
         public IEnumerable<Seat> GetAllInScreen(int screenId);
+
+        public IEnumerable<SeatsInScreen> GetAvailableSeatsPerScreen();
     }
 }

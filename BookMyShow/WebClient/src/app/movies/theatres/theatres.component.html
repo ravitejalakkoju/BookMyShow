@@ -21,11 +21,16 @@
         <ul class="px-5 py-3 list-unstyled theatre-list">
             <li *ngFor="let theatre of theatres" class="theatre-list-item text-left p-3 border-bottom">
                 <h5>{{theatre.name}}</h5>
-                <ul class="list-unstyled list-inline mt-3">
-                  <li *ngFor="let showTime of theatre.showTimes.toString().split('|'); let index = index" class="list-inline-item small mx-1">
-                    <a [routerLink]="[theatre.id, 'screen', theatre.screenIDs.toString().split('|')[index]]" class="text-decoration-none border px-1 rounded-pill disabled" [ngClass]="{'border-danger text-danger': checkShowTimeAvailability(showTime), 'border-secondary text-secondary disabled': !checkShowTimeAvailability(showTime)}">{{showTime}}</a>
+                <ul class="list-unstyled list-inline mt-3" *ngIf="seatsInScreen">
+                  <li  *ngFor="let showTime of theatre.showTimes.toString().split('|'); let index = index;" class="list-inline-item small mx-1">
+                    <a *ngIf="theatre.screenIDs.toString().split('|'); let screenIDs" [routerLink]="[theatre.id, 'screen', screenIDs[index]]" class="text-decoration-none border px-1 rounded-pill" [ngClass]="{'border-danger text-danger': checkShowTimeAvailability(showTime) && seatsInScreen[screenIDs[index]] < 0.5, 'border-warning text-warning': checkShowTimeAvailability(showTime) && seatsInScreen[screenIDs[index]] < 0.75, 'border-success text-success': checkShowTimeAvailability(showTime) && seatsInScreen[screenIDs[index]] > 0.8, 'border-secondary text-secondary disabled': !checkShowTimeAvailability(showTime)}">{{showTime}}</a>
                   </li>
                 </ul>
+            </li>
+            <li *ngIf="theatres.length == 0">
+              <div class="small text-secondary">
+                No Shows left for today
+              </div>
             </li>
         </ul>
     </div>

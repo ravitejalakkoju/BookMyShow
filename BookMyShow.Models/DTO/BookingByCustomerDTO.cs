@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BookMyShow.Models.DTO
 {
-    public class BookingByCustomerDTO: BookingDTO
+    public class BookingByCustomerDTO
     {
         public int ID { get; set; }
 

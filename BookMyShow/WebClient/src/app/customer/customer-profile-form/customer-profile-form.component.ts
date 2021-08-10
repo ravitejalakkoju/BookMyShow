@@ -71,6 +71,7 @@ export class CustomerProfileFormComponent implements OnInit {
     customer['status'] = Status[customer['status']]
     customer['creationDate'] = this.customerDetails.creationDate;
     this.customerService.updateCustomer(customer as ICustomer).subscribe(result => {
+      alert("Profile Updated Successfully");
     }, error => console.error(error))
   }
 

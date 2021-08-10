@@ -13,17 +13,23 @@ namespace BookMyShow.Controllers
     [ApiController]
     public class SeatsController : ControllerBase
     {
-        private SeatService _seatService;
+        private readonly SeatService _seatService;
 
         public SeatsController(SeatService seatService)
         {
             _seatService = seatService;
         }
 
-        [HttpGet]
+        [HttpGet("{screenId:int}")]
         public IEnumerable<SeatDTO> Get(int screenId)
         {
             return _seatService.GetSeatsInScreen(screenId);
+        }
+
+        [HttpGet]
+        public IEnumerable<SeatsInScreenDTO> GetSeatCountPerScreen()
+        {
+            return _seatService.GetSeatCountPerScreen();
         }
     }
 }

@@ -35,6 +35,7 @@ export class SeatSelectionComponent implements OnInit {
     private customerService: CustomersService,
     private bookingService: BookingsService,
     private ticketService: TicketService,
+    private seatService: SeatService,
     private router: Router) { }
 
   ngOnInit(): void {
@@ -51,7 +52,7 @@ export class SeatSelectionComponent implements OnInit {
         this.movieName = result.name
       }, error => console.error(error))
 
-      this.screenService.GetSeatsInScreen(result.id).subscribe(result => {
+      this.seatService.GetSeatsInScreen(result.id).subscribe(result => {
         this.seats = result
       }, error => console.error(error))
 

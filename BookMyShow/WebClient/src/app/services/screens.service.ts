@@ -14,7 +14,4 @@ export class ScreensService {
     return this.http.get<IScreen>('https://localhost:44352/api/screens/' + id);
   }
 
-  GetSeatsInScreen(id: number) {
-    return this.http.get<ISeat[]>('https://localhost:44352/api/seats?screenId=' + id);
-  }
 }

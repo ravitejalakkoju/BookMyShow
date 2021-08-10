@@ -24,7 +24,7 @@ export class MoviesService {
   }
 
   getMovieDetails(apiid: string) {
-    return this.http.get<IMovieDetails>('http://www.omdbapi.com/?i=' + apiid + '&apikey=dbaf7dd7');
+    return this.http.get<IMovieDetails>('https://www.omdbapi.com/?i=' + apiid + '&apikey=dbaf7dd7');
   }
 
 }

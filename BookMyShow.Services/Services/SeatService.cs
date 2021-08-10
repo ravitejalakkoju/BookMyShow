@@ -24,5 +24,10 @@ namespace BookMyShow.Services
         {
             return _mapper.Map<IEnumerable<SeatDTO>>(_theatreWrapper.SeatRepository.GetAllInScreen(screenId));
         }
+
+        public IEnumerable<SeatsInScreenDTO> GetSeatCountPerScreen()
+        {
+            return _mapper.Map<IEnumerable<SeatsInScreenDTO>>(_theatreWrapper.SeatRepository.GetAvailableSeatsPerScreen());
+        }
     }
 }

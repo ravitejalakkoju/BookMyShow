@@ -8,6 +8,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { LocationService } from '../../services/location.service';
 import { IMovie } from '../../Interfaces/IMovie';
 import { link } from 'fs';
+import { ISeatsInScreen } from '../../Interfaces/ISeatsInScreen';
+import { SeatService } from '../../services/seat.service';
+import { Hash } from 'crypto';
 
 @Component({
   selector: 'app-theatres',
@@ -21,6 +24,8 @@ export class TheatresComponent implements OnInit {
   movie: IMovie;
   selectedDate: string = null;
   currentDate: Date = new Date();
+
+  seatsInScreen: object = null;
   
   initializeDates(){
     this.selectedDate = formatDate(this.currentDate, 'yyyy-MM-dd', 'en');
@@ -41,10 +46,20 @@ export class TheatresComponent implements OnInit {
     return showMinutes > currentMinutes;
   }
 
+  isShowTimes(showTimes: string) {
+    let showTimesArray: string[] = showTimes.split("|");
+    let isAvailable: boolean = true;
+    showTimesArray.forEach((el, index) => {
+      if (!this.checkShowTimeAvailability(el)) isAvailable = false;
+    })
+    return isAvailable;
+  }
+
   constructor(private theatresService: TheatresService,
     private locationService: LocationService,
     private moviesService: MoviesService,
     private route: ActivatedRoute,
+    private seatService: SeatService,
     private router: Router  ) {
     this.dates = []
     this.theatres = []
@@ -61,9 +76,21 @@ export class TheatresComponent implements OnInit {
       this.moviesService.getMovie(movieId).subscribe(result => {
         this.movie = result;
       })
+
       this.initializeDates();
+
       this.theatresService.GetTheatresForMovieAtLocation(locationId, movieId).subscribe(result => {
-        this.theatres = result
+
+        this.theatres = result.filter(t => this.isShowTimes(t.showTimes))
+
+        this.seatService.GetSeatCountInScreens().subscribe(result => {
+          this.seatsInScreen = result.reduce(function (map, obj) {
+            map[obj.screenID] = obj.seatCount;
+            return map;
+          }, {});
+
+        }, error => console.error(error))
+
       }, error => console.error(error));
 
     }

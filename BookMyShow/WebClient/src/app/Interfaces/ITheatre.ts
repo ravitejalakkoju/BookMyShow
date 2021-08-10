@@ -3,5 +3,5 @@ export interface ITheatre {
   name: string,
   locationID: number,
   screenIDs: string,
-  showTimes: Date
+  showTimes: string
 }

@@ -18,6 +18,7 @@ export class CustomersService {
   }
 
   createCustomer(customer: ICustomer) {
+    return this.http.post<ICustomer>('https://localhost:44352/api/customers', customer);
   }
 
   updateCustomer(customer: ICustomer) {
