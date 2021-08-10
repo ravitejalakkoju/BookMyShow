@@ -6,7 +6,7 @@
                 <div class="col">
                     <label for="firstName" class="small mx-2">First Name</label>
                     <input type="text" class="ms-1 col-11 p-1 bg-transparent" formControlName="firstName" [class.is-invalid]="firstName.invalid && firstName.touched" id="firstName" aria-describedby="firstNameHelp">
-                    <div id="firstNameHelp" class="small m-2 text-danger" [class.d-none]="firstName.valid || firstName.untouched">FirstName is Required*</div>
+                    <div id="firstNameHelp" class="small m-2 text-danger" *ngIf="(firstName.invalid && firstName.touched) || (firstName.invalid && submit)">FirstName is Required*</div>
                 </div>
                 <div class="col">
                   <label for="lastName" class="small mx-2">Last Name</label>
@@ -16,7 +16,7 @@
             <div class="mb-3 text-secondary row mt-4">
               <label for="exampleInputEmail1" class="small mx-2">Email</label>
               <input type="email" class="ms-3 col-11 p-1 bg-transparent" [class.is-invalid]="email.invalid && email.touched" formControlName="email" id="exampleInputEmail1" aria-describedby="emailHelp">
-              <div *ngIf="email.invalid && email.touched" class="col-12">
+              <div *ngIf="(email.invalid && email.touched) || (email.invalid && submit)" class="col-12">
                 <small *ngIf="email.errors?.required" class="text-danger">Email is required * </small>
                 <small *ngIf="email.errors?.pattern" class="text-danger">Enter in correct pattern [eg., xyz.123_abc@email.com] ! </small>
               </div>
@@ -24,7 +24,7 @@
             <div class="mb-3 text-secondary row mt-4">
               <label for="exampleInputPassword1" class="small mx-2">Password</label>
               <input type="password" class="ms-3 col-11 p-1 bg-transparent" formControlName="password" id="exampleInputPassword1">
-              <div id="passwordHelp" class="small m-2 text-danger" [class.d-none]="password.valid || password.untouched">Password is Required*</div>
+              <div id="passwordHelp" class="small m-2 text-danger" *ngIf="(password.invalid && password.touched) || (password.invalid && submit)">Password is Required*</div>
             </div>
             <div class="mb-3 text-secondary row mt-4">
                 <label for="displayPicture" class="small mx-2">Display Picture</label>

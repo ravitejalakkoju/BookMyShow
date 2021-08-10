@@ -1,5 +1,6 @@
 ﻿using BookMyShow.Services.Repositories.Interfaces;
 using BookMyShow.Entities;
+using PetaPoco.NetCore;
 
 namespace BookMyShow.Services.Repositories.Mock
 {
@@ -12,19 +13,38 @@ namespace BookMyShow.Services.Repositories.Mock
             _context = context;
         }
 
-        public CustomerView Get(int customerId)
+        /* public CustomerView Get(int customerId)
         {
             return _context.SingleOrDefault<CustomerView>(customerId);
-        }
+        }*/
 
-        public void Insert(Customer customer)
+        public CustomerView Get(string email, string password)
         {
-            _context.Insert(customer);
+            Sql query = Sql.Builder
+                        .Select("*")
+                        .From("Customer")
+                        .Where("Email=@0 and Password=@1", email, password);
+
+            return _context.SingleOrDefault<CustomerView>(query);
+        }
+        public string Insert(Customer customer)
+        {
+            try
+            {
+                _context.Insert(customer);
+
+                return null;
+            }
+            catch (System.Exception)
+            {
+                return "Email already exists";
+            }
         }
 
         public void Update(Customer customer)
         {
             _context.Update("Customer", "ID", customer, customer.ID);
         }
+
     }
 }

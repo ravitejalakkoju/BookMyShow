@@ -1,12 +1,13 @@
 import { Injectable } from '@angular/core';
 import { AbstractControl, ValidatorFn } from '@angular/forms';
+import { CustomersService } from './customers.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CustomerFormValidatorService {
 
-  constructor() { }
+  constructor(private customerService: CustomersService) { }
 
   patternValidator(pattern: RegExp): ValidatorFn {
     return (control: AbstractControl): { [key: string]: any } | null => {

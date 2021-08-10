@@ -14,7 +14,11 @@ export class CustomersService {
   }
 
   getCustomerDetails(customerID: number) {
-    return this.http.get<ICustomer>('https://localhost:44352/api/customers/' + customerID);
+    return this.http.get<ICustomer>('https://localhost:44352/api/customers/' + customerID + '?s=id');
+  }
+
+  getCustomerDetailsByEmail(email: string) {
+    return this.http.get<ICustomer>('https://localhost:44352/api/customers/' + email + '?s=email');
   }
 
   createCustomer(customer: ICustomer) {

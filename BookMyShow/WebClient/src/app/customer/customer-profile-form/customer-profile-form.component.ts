@@ -11,9 +11,7 @@ import { CustomerFormValidatorService } from '../../services/customer-form-valid
   styleUrls: ['./customer-profile-form.component.sass']
 })
 export class CustomerProfileFormComponent implements OnInit {
-
-  customerDetails: ICustomer;
-
+  creationDate: any;
   customerForm = this.fb.group({
     'id': ['', Validators.required],
     'firstName': ['', Validators.required],
@@ -26,6 +24,7 @@ export class CustomerProfileFormComponent implements OnInit {
   });
 
   customerId: number;
+  submit: boolean = false;
 
   constructor(private route: ActivatedRoute,
     private customerService: CustomersService,
@@ -35,7 +34,7 @@ export class CustomerProfileFormComponent implements OnInit {
       params => {
         this.customerId = params.id;
         this.customerService.getCustomerDetails(this.customerId).subscribe(result => {
-          this.customerDetails = result
+          this.creationDate = result.creationDate;
           this.customerForm.setValue({
             id: result.id,
             firstName: result.firstName,
@@ -52,6 +51,7 @@ export class CustomerProfileFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.submit = false;
   }
 
   get firstName() {
@@ -68,11 +68,15 @@ export class CustomerProfileFormComponent implements OnInit {
 
   onSubmit() {
     let customer: any = this.customerForm.value;
-    customer['status'] = Status[customer['status']]
-    customer['creationDate'] = this.customerDetails.creationDate;
-    this.customerService.updateCustomer(customer as ICustomer).subscribe(result => {
-      alert("Profile Updated Successfully");
-    }, error => console.error(error))
+    this.submit = true;
+    if (this.customerForm.valid) {
+      console.log(customer);
+      customer['status'] = Status[customer['status']]
+      customer['creationDate'] = this.creationDate;
+      this.customerService.updateCustomer(customer as ICustomer).subscribe(result => {
+        alert("Profile Updated Successfully");
+      }, error => console.error(error))
+    }
   }
 
 }

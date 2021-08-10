@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ICustomer } from '../../Interfaces/ICustomer';
 import { CustomerFormValidatorService } from '../../services/customer-form-validator.service';
 import { CustomersService } from '../../services/customers.service';
 
@@ -12,15 +13,17 @@ import { CustomersService } from '../../services/customers.service';
 export class CustomerAuthFormComponent implements OnInit {
 
   hasAccount: boolean;
+  submit: boolean = false;
 
   authForm = this.fb.group({
-    'id': ['', Validators.required],
+    'id': ['0', Validators.required],
     'firstName': ['', Validators.required],
     'lastName': [''],
     'email': ['', [Validators.required, this.formValidator.patternValidator(/[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}/)]],
     'password': ['', Validators.required],
-    'displayPicture': [''],
-    'status': ['0', Validators.required]
+    'displayPicture': [null],
+    'status': ['0', Validators.required],
+    'creationDate': ['2021-08-08T00:00:00Z']
   })
 
   constructor(private router: Router,
@@ -32,6 +35,7 @@ export class CustomerAuthFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.submit = false;
   }
 
   getAction(){
@@ -51,21 +55,20 @@ export class CustomerAuthFormComponent implements OnInit {
     return this.authForm.get('password')
   }
 
+
   onSubmit() {
     let customer: any = this.authForm.value;
-    /*
-     if (!this.hasAccount) {
-      customer['status'] = Status[customer['status']]
-      this.customerService.createCustomer(customer)
+    this.submit = true;
+    if (this.authForm.valid) {
+      if (!this.hasAccount) {
+        this.customerService.createCustomer(customer as ICustomer).subscribe(result => {
+          if(result) alert(result);
+          else this.router.navigate(['user/customer/login']);
+        }, error => console.error(error));
+      }
     }
-     */
-    console.log(customer);
+        
   }
-}
-
-enum Status {
-  Regular = 0,
-  Premium
 }
 
 

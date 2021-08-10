@@ -5,10 +5,12 @@ using System.Linq;
 using System.Threading.Tasks;
 using BookMyShow.Services;
 using BookMyShow.Models.DTO;
+using Microsoft.AspNetCore.Authorization;
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace BookMyShow.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class CustomersController : ControllerBase
@@ -20,17 +22,26 @@ namespace BookMyShow.Controllers
             _customerService = customerService;
         }
 
-        [HttpGet("{id}")]
-        public CustomerDTO Get(int id)
+        [HttpGet]
+        public CustomerDTO Get(string email, string password)
         {
-            return _customerService.GetCustomer(id);
+            switch (s)
+            {
+                case "id":
+                    return _customerService.GetCustomer(Int32.Parse(key));
+                case "email":
+                    return _customerService.GetCustomerByEmail(key);
+                default:
+                    return null;
+            }
+            
         }
 
         // POST api/<CustomersController>
         [HttpPost]
-        public void Post([FromBody] CustomerDTO customerDTO)
+        public JsonResult Post([FromBody] CustomerDTO customerDTO)
         {
-            _customerService.CreateCustomer(customerDTO);
+            return new JsonResult(_customerService.CreateCustomer(customerDTO));
         }
 
         // PUT api/<CustomersController>/5

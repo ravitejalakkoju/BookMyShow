@@ -13,6 +13,8 @@ using BookMyShow.Services.Repositories.Interfaces;
 using BookMyShow.Services.Repositories.Mock;
 using BookMyShow.Services.AutoMapperProfiles;
 using System;
+using Microsoft.AspNetCore.Authentication;
+using BookMyShow.Handlers;
 
 namespace BookMyShow
 {
@@ -37,6 +39,9 @@ namespace BookMyShow
                 var options = new System.Data.SqlClient.SqlConnection(Configuration.GetConnectionString("BookMyShowConnection"));
                 return new DBContext(options);
             });
+
+            services.AddAuthentication("BasicAuthentication")
+                    .AddScheme<AuthenticationSchemeOptions, BasicAuthenticationHandler>("BasicAuthentication", null);
 
 
             //MockRespository
@@ -106,6 +111,9 @@ namespace BookMyShow
             }
 
             app.UseRouting();
+
+            app.UseAuthentication();
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
