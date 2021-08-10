@@ -35,8 +35,8 @@
         <span *ngFor="let seat of selectedSeats" class="px-2 fw-bold">{{seat.code}}</span>
       </div>
       <div class="p-3">
-        <a *ngIf="!login" [routerLink]="['/user/customer/login']" class="text-decoration-none payment rounded-pill fw-bold py-3 px-4 border-0 bg-danger">Proceed to Payment</a>
-        <a *ngIf="login" (click)="confirmBooking()" class="text-decoration-none payment rounded-pill fw-bold py-3 px-4 border-0 bg-danger">Proceed to Payment</a>
+        <a *ngIf="!isLogged" [routerLink]="['/user/customer/login']" (click)="loginRequiredAlert()" class="text-decoration-none payment rounded-pill fw-bold py-3 px-4 border-0 bg-danger">Proceed to Payment</a>
+        <a *ngIf="isLogged" (click)="confirmBooking()" class="text-decoration-none payment rounded-pill fw-bold py-3 px-4 border-0 bg-danger">Proceed to Payment</a>
       </div>
     </div>
   </div>

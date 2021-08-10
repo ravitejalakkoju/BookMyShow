@@ -12,7 +12,7 @@ import { IBookingByCustomer } from '../../Interfaces/IBookingByCustomer';
 })
 export class CustomerBookingsComponent implements OnInit {
 
-  currentId: number;
+  currentId: number = -1;
   customerId: number;
   currentIdSubscription: Subscription;
 

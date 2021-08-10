@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { IBooking } from '../../Interfaces/IBooking';
+import { ICustomer } from '../../Interfaces/ICustomer';
 import { IScreen } from '../../Interfaces/IScreen';
 import { ISeat } from '../../Interfaces/ISeat';
 import { ITicket } from '../../Interfaces/ITicket';
@@ -19,7 +20,7 @@ import { TicketService } from '../../services/ticket.service';
 })
 export class SeatSelectionComponent implements OnInit {
 
-  login: boolean = true;
+  isLogged: boolean = false;
 
   theatreName: string;
   movieName: string;
@@ -27,6 +28,7 @@ export class SeatSelectionComponent implements OnInit {
   seats: ISeat[] = [];
 
   selectedSeats: ISeat[] = [];
+  currentCustomer: ICustomer = this.customerService.currentCustomer;
 
   constructor(private route: ActivatedRoute,
     private theatreService: TheatresService,
@@ -36,7 +38,11 @@ export class SeatSelectionComponent implements OnInit {
     private bookingService: BookingsService,
     private ticketService: TicketService,
     private seatService: SeatService,
-    private router: Router) { }
+    private router: Router) {
+    this.customerService.currentCustomerChange.subscribe(value => {
+      this.currentCustomer = value;
+    })
+  }
 
   ngOnInit(): void {
     let t: any = this.route.snapshot.paramMap.get('theatreId');
@@ -57,6 +63,8 @@ export class SeatSelectionComponent implements OnInit {
       }, error => console.error(error))
 
     }, error => console.error(error))
+
+    this.isLogged = !(this.currentCustomer == null)
   }
 
   toggleSeatSelection(seatCode: string) {
@@ -85,6 +93,10 @@ export class SeatSelectionComponent implements OnInit {
       })
       
     }, error => console.error(error));
+  }
+
+  loginRequiredAlert() {
+    alert('You need to be logged in to book tickets');
   }
 
   numToChar(num: number){

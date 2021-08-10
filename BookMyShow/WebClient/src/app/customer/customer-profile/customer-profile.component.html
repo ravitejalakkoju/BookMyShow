@@ -3,7 +3,7 @@
         <div class="col-12 m-5 mb-3">
             <a [routerLink]="['.']">
                 <img *ngIf="!customerProfile" src="assets/profile.png" height="100" width="100" class="rounded-circle p-1 border border-danger">
-                <img *ngIf="customerProfile" [src]="customerProfile" height="100" width="100" class="rounded-circle p-1 border border-danger">
+                <img *ngIf="customerProfile" [src]="customerProfile.displayPicture" height="100" width="100" class="rounded-circle p-1 border border-danger">
             </a>
         </div>
         <div class="col-12 text-white mx-5 d-flex justify-content-left">

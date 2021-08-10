@@ -3,7 +3,7 @@
         <h6 class="heading bg-dark p-2 text-white rounded">{{ "Booking History" | uppercase }}</h6>
         <ul class="list-unstyled">
             <router-outlet></router-outlet>
-            <li *ngFor="let booking of customerBookings" class="booking p-3 rounded my-2 bg-white position-relative">
+            <li *ngFor="let booking of customerBookings.reverse()" class="booking p-3 rounded my-2 bg-white position-relative">
                 <img *ngIf="compareDate(booking.dateTime)" width="65" src="https://thumbs.dreamstime.com/b/completed-stamp-grunge-vintage-isolated-white-background-sign-148426393.jpg" class="completed-stamp">
                 <div class="d-flex justify-content-between">
                     <div class="">

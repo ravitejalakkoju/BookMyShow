@@ -37,8 +37,13 @@
                 </a>
             </li>
         </ul>
-        <div *ngIf="!currentCustomer">
+        <div *ngIf="!currentCustomer" class="list-unstyled">
           <li class="bg-darkblue navbar p-3 fs-5"><b class="text-white">Hey!</b></li>
+          <li class="bg-light p-3 options-list-item col-12">
+            <span class="d-flex justify-content-between text-decoration-none text-secondary">
+              <b>LogIn</b> to get options
+            </span>
+          </li>
         </div>
         <div class="position-absolute col-12 col-sm-6 col-lg-4 left-0 bottom-0 py-3 bg-light">
             <div class="d-flex justify-content-center">
