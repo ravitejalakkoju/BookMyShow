@@ -5,8 +5,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
-using BookMyShow.Services;
-using BookMyShow.Models.DTO;
+using BookMyShow.Services.Interfaces;
+using BookMyShow.Models.Location;
 
 namespace BookMyShow.Controllers
 {
@@ -14,9 +14,9 @@ namespace BookMyShow.Controllers
     [ApiController]
     public class LocationsController : ControllerBase
     {
-        private readonly LocationService _locationService;
+        private readonly ILocationService _locationService;
 
-        public LocationsController(LocationService locationService)
+        public LocationsController(ILocationService locationService)
         {
             _locationService = locationService;
         }
@@ -24,7 +24,7 @@ namespace BookMyShow.Controllers
         [HttpGet]
         public IEnumerable<LocationDTO> Get()
         {
-            var locations = _locationService.GetLocations();
+            var locations = _locationService.GetAll();
 
             return locations;
         }
@@ -32,7 +32,7 @@ namespace BookMyShow.Controllers
         [HttpGet("{locationId}")]
         public LocationDTO Get(int locationId)
         {
-            var location = _locationService.GetLocation(locationId);
+            var location = _locationService.Get(locationId);
 
             return location;
         }

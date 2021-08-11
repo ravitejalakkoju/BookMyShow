@@ -8,10 +8,8 @@ using Microsoft.Extensions.Hosting;
 using SimpleInjector;
 using BookMyShow.Services;
 using PetaPoco.NetCore;
-using BookMyShow.Entities;
-using BookMyShow.Services.Repositories.Interfaces;
-using BookMyShow.Services.Repositories.Mock;
-using BookMyShow.Services.AutoMapperProfiles;
+using BookMyShow.Models;
+using BookMyShow.Services.Interfaces;
 using System;
 using Microsoft.AspNetCore.Authentication;
 using BookMyShow.Handlers;
@@ -43,25 +41,20 @@ namespace BookMyShow
             services.AddAuthentication("BasicAuthentication")
                     .AddScheme<AuthenticationSchemeOptions, BasicAuthenticationHandler>("BasicAuthentication", null);
 
-
-            //MockRespository
-            services.AddScoped<ILocationWrapper, MockLocationWrapper>();
-            services.AddScoped<IMovieWrapper, MockMovieWrapper>();
-            services.AddScoped<ITheatreWrapper, MockTheatreWrapper>();
-            services.AddScoped<ICustomerWrapper, MockCustomerWrapper>();
-
             //Automapper DI
             services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
             //RegisterServices
-            services.AddScoped<LocationService>();
-            services.AddScoped<MovieService>();
-            services.AddScoped<TheatreService>();
-            services.AddScoped<ScreenService>();
-            services.AddScoped<SeatService>();
-            services.AddScoped<CustomerService>();
-            services.AddScoped<BookingService>();
-            services.AddScoped<TicketService>();
+            services.AddScoped<ILocationService, LocationService>();
+            services.AddScoped<IMovieService, MovieService>();
+            services.AddScoped<ILanguageService, LanguageService>();
+            services.AddScoped<IGenreService, GenreService>();
+            services.AddScoped<ITheatreService, TheatreService>();
+            services.AddScoped<IScreenService, ScreenService>();
+            services.AddScoped<ISeatService, SeatService>();
+            services.AddScoped<ICustomerService, CustomerService>();
+            services.AddScoped<IBookingService, BookingService>();
+            services.AddScoped<ITicketService, TicketService>();
 
             services.AddCors();
 
@@ -78,17 +71,13 @@ namespace BookMyShow
             //InitializeContainer();
         }
 
-        private void InitializeContainer()
-        {
-            //container.Register<ILocationRepository, LocationRepository>(Lifestyle.Scoped);
-        }
-
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             app.UseCors(options => {
                 options.WithOrigins("http://localhost:4200").AllowAnyMethod().AllowAnyHeader();
             });
+
             app.UseSimpleInjector(container);
 
             if (env.IsDevelopment())

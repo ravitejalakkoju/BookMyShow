@@ -4,8 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AutoMapper;
-using BookMyShow.Models.DTO;
-using BookMyShow.Entities;
+using BookMyShow.Models.Theatre;
+using BookMyShow.DBModels;
 
 namespace BookMyShow.Services.AutoMapperProfiles
 {

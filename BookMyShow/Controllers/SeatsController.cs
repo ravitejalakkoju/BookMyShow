@@ -3,8 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using BookMyShow.Models.DTO;
-using BookMyShow.Services;
+using BookMyShow.Models.Theatre;
+using BookMyShow.Services.Interfaces;
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace BookMyShow.Controllers
@@ -13,9 +13,9 @@ namespace BookMyShow.Controllers
     [ApiController]
     public class SeatsController : ControllerBase
     {
-        private readonly SeatService _seatService;
+        private readonly ISeatService _seatService;
 
-        public SeatsController(SeatService seatService)
+        public SeatsController(ISeatService seatService)
         {
             _seatService = seatService;
         }
@@ -23,13 +23,13 @@ namespace BookMyShow.Controllers
         [HttpGet("{screenId:int}")]
         public IEnumerable<SeatDTO> Get(int screenId)
         {
-            return _seatService.GetSeatsInScreen(screenId);
+            return _seatService.GetAllInScreen(screenId);
         }
 
         [HttpGet]
         public IEnumerable<SeatsInScreenDTO> GetSeatCountPerScreen()
         {
-            return _seatService.GetSeatCountPerScreen();
+            return _seatService.GetAvailableSeatsPerScreen();
         }
     }
 }

@@ -8,22 +8,22 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using BookMyShow.Services;
-using BookMyShow.Models.DTO;
+using BookMyShow.Services.Interfaces;
+using BookMyShow.Models.User.Customer;
 using System.Security.Claims;
 
 namespace BookMyShow.Handlers
 {
     public class BasicAuthenticationHandler : AuthenticationHandler<AuthenticationSchemeOptions>
     {
-        private readonly CustomerService _customerService;
+        private readonly ICustomerService _customerService;
 
         public BasicAuthenticationHandler(
             IOptionsMonitor<AuthenticationSchemeOptions> options,
             ILoggerFactory logger,
             UrlEncoder encoder,
             ISystemClock clock,
-            CustomerService customerService) : base(options, logger, encoder, clock)
+            ICustomerService customerService) : base(options, logger, encoder, clock)
         {
             _customerService = customerService;
         }
@@ -42,7 +42,7 @@ namespace BookMyShow.Handlers
                 string email = credentials[0];
                 string password = credentials[1];
 
-                CustomerDTO customer = _customerService.GetCustomer(email, password);
+                CustomerDTO customer = _customerService.Get(email, password);
 
                 if (customer == null)
                     return AuthenticateResult.Fail("Invalid Username or password");

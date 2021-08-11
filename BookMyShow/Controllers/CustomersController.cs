@@ -3,8 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using BookMyShow.Services;
-using BookMyShow.Models.DTO;
+using BookMyShow.Services.Interfaces;
+using BookMyShow.Models.User.Customer;
 using Microsoft.AspNetCore.Authorization;
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -14,9 +14,9 @@ namespace BookMyShow.Controllers
     [ApiController]
     public class CustomersController : ControllerBase
     {
-        private readonly CustomerService _customerService;
+        private readonly ICustomerService _customerService;
 
-        public CustomersController(CustomerService customerService)
+        public CustomersController(ICustomerService customerService)
         {
             _customerService = customerService;
         }
@@ -24,16 +24,12 @@ namespace BookMyShow.Controllers
         [HttpGet("{key}")]
         public CustomerDTO Get(string key, string s)
         {
-            switch (s)
+            return s switch
             {
-                case "id":
-                    return _customerService.GetCustomer(Int32.Parse(key));
-                case "email":
-                    return _customerService.GetCustomerByEmail(key);
-                default:
-                    return null;
-            }
-            
+                "id" => _customerService.Get(Int32.Parse(key)),
+                "email" => _customerService.GetByEmail(key),
+                _ => null,
+            };
         }
 
         [HttpGet("GetCustomer")]
@@ -41,21 +37,21 @@ namespace BookMyShow.Controllers
         {
             //string email = HttpContext.User.Identity.Name;
 
-            return  _customerService.GetCustomer(email, password);
+            return  _customerService.Get(email, password);
         }
 
         // POST api/<CustomersController>
         [HttpPost]
         public JsonResult Post([FromBody] CustomerDTO customerDTO)
         {
-            return new JsonResult(_customerService.CreateCustomer(customerDTO));
+            return new JsonResult(_customerService.Create(customerDTO));
         }
 
         // PUT api/<CustomersController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] CustomerDTO customerDTO)
+        public void Put([FromBody] CustomerDTO customerDTO)
         {
-            _customerService.UpdateCustomer(customerDTO);
+            _customerService.Update(customerDTO);
         }
     }
 }

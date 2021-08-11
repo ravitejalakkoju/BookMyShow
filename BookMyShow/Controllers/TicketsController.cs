@@ -3,8 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using BookMyShow.Services;
-using BookMyShow.Models.DTO;
+using BookMyShow.Services.Interfaces;
+using BookMyShow.Models.User.Customer;
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace BookMyShow.Controllers
@@ -13,9 +13,9 @@ namespace BookMyShow.Controllers
     [ApiController]
     public class TicketsController : ControllerBase
     {
-        private TicketService _ticketService;
+        private readonly ITicketService _ticketService;
 
-        public TicketsController(TicketService ticketService)
+        public TicketsController(ITicketService ticketService)
         {
             _ticketService = ticketService;
         }
@@ -24,7 +24,7 @@ namespace BookMyShow.Controllers
         [HttpPost]
         public void Post([FromBody] TicketDTO ticketDTO)
         {
-            _ticketService.CreateTicket(ticketDTO);
+            _ticketService.Create(ticketDTO);
         }
     }
 }

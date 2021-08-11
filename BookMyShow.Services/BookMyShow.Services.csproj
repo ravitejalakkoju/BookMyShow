@@ -4,11 +4,6 @@
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
 
-
-  <ItemGroup>
-    <Folder Include="Repositories\Classes\" />
-  </ItemGroup>
-
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="10.1.1" />
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
@@ -18,6 +13,10 @@
 
   <ItemGroup>
     <ProjectReference Include="..\BookMyShow.Models\BookMyShow.Models.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Services\" />
   </ItemGroup>
 
 </Project>

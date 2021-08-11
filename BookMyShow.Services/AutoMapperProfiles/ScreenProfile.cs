@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using BookMyShow.Models.DTO;
-using BookMyShow.Entities;
+using BookMyShow.Models.Theatre;
+using BookMyShow.DBModels;
 using AutoMapper;
 
 namespace BookMyShow.Services.AutoMapperProfiles
