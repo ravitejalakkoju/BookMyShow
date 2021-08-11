@@ -13,10 +13,5 @@ namespace BookMyShow.Services
         public DBContext(IDbConnection connection): base(connection)
         {
         }
-
-        internal void Save<T>(string v1, string v2, T t)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

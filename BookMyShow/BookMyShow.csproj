@@ -31,19 +31,24 @@
     <!-- Don't publish the SPA source files, but do show them in the project files list -->
     <Content Remove="$(SpaRoot)**" />
     <Content Remove="ClientApp\**" />
+    <Content Remove="Pages\**" />
     <Content Remove="WebClient\node_modules\**" />
     <None Remove="$(SpaRoot)**" />
     <None Remove="ClientApp\**" />
+    <None Remove="Pages\**" />
     <None Remove="WebClient\node_modules\**" />
     <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
   </ItemGroup>
 
   <ItemGroup>
     <Compile Remove="ClientApp\**" />
+    <Compile Remove="Pages\**" />
     <Compile Remove="WebClient\node_modules\**" />
     <EmbeddedResource Remove="ClientApp\**" />
+    <EmbeddedResource Remove="Pages\**" />
     <EmbeddedResource Remove="WebClient\node_modules\**" />
     <TypeScriptCompile Remove="ClientApp\**" />
+    <TypeScriptCompile Remove="Pages\**" />
     <TypeScriptCompile Remove="WebClient\node_modules\**" />
   </ItemGroup>
 

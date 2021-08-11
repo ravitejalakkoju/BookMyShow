@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookMyShow.Models", "BookMy
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookMyShow.Services", "BookMyShow.Services\BookMyShow.Services.csproj", "{2AAAE7E1-AAE3-4D3C-994E-C53E2638F4A7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookMyShow.Data", "BookMyShow.Data\BookMyShow.Data.csproj", "{5D31D74E-2B26-43DC-A2EE-11EF20F38857}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{2AAAE7E1-AAE3-4D3C-994E-C53E2638F4A7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2AAAE7E1-AAE3-4D3C-994E-C53E2638F4A7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2AAAE7E1-AAE3-4D3C-994E-C53E2638F4A7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5D31D74E-2B26-43DC-A2EE-11EF20F38857}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5D31D74E-2B26-43DC-A2EE-11EF20F38857}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5D31D74E-2B26-43DC-A2EE-11EF20F38857}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5D31D74E-2B26-43DC-A2EE-11EF20F38857}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

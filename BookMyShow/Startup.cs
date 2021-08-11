@@ -1,18 +1,15 @@
+using BookMyShow.Handlers;
+using BookMyShow.Services;
+using BookMyShow.Services.Interfaces;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using SimpleInjector;
-using BookMyShow.Services;
-using PetaPoco.NetCore;
-using BookMyShow.Models;
-using BookMyShow.Services.Interfaces;
 using System;
-using Microsoft.AspNetCore.Authentication;
-using BookMyShow.Handlers;
 
 namespace BookMyShow
 {
@@ -33,7 +30,8 @@ namespace BookMyShow
         {
             services.AddControllersWithViews();
 
-            services.AddScoped<DBContext>(x => {
+            services.AddScoped<DBContext>(x =>
+            {
                 var options = new System.Data.SqlClient.SqlConnection(Configuration.GetConnectionString("BookMyShowConnection"));
                 return new DBContext(options);
             });
@@ -74,7 +72,8 @@ namespace BookMyShow
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            app.UseCors(options => {
+            app.UseCors(options =>
+            {
                 options.WithOrigins("http://localhost:4200").AllowAnyMethod().AllowAnyHeader();
             });
 
