@@ -15,8 +15,4 @@
     <ProjectReference Include="..\BookMyShow.Models\BookMyShow.Models.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Services\" />
-  </ItemGroup>
-
 </Project>

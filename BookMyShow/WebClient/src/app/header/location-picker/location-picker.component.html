@@ -17,14 +17,22 @@
               <br />Hyderabad
             </label>
           </li>
-            <li class="list-inline-item text-center">
-                <label>
-                    <input type="radio" value="{id: 3, name: 'Mumbai'}" name="place" [(ngModel)] = "selectedCity" (change)="isSelected(3, 'Mumbai')">
-                    <img *ngIf="selectedCity.id==3" src="https://thumbs.dreamstime.com/b/gate-india-mumbai-bombay-vector-illustration-isolated-white-background-89579231.jpg" width="100" class="m-2">
-                    <img *ngIf="selectedCity.id!=3" src="https://www.seekpng.com/png/full/90-905415_gateway-of-india-full-hd-maps-locations-mumbai.png" width="100" class="m-2">
-                    <br/>Mumbai
-                </label>
-            </li>
+          <!-- <li class="list-inline-item text-center">
+            <label>
+              <input type="radio" value="{id: 3, name: 'Mumbai'}" name="place" [(ngModel)]="selectedCity" (change)="isSelected(3, 'Mumbai')">
+              <img *ngIf="selectedCity.id==3" src="https://thumbs.dreamstime.com/b/gate-india-mumbai-bombay-vector-illustration-isolated-white-background-89579231.jpg" width="100" class="m-2">
+              <img *ngIf="selectedCity.id!=3" src="https://www.seekpng.com/png/full/90-905415_gateway-of-india-full-hd-maps-locations-mumbai.png" width="100" class="m-2">
+              <br />Mumbai
+            </label>
+          </li>
+          <li class="list-inline-item text-center">
+            <label>
+              <input type="radio" value="{id: 14, name: 'Visakhapatnam'}" name="place" [(ngModel)]="selectedCity" (change)="isSelected(14, 'Visakhapatnam')">
+              <img *ngIf="selectedCity.id==14" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRLl3lUCELW7cYeMKOLuxlq5BcPV0frjI-g_jzm6MFfA6one5xEzCNljEw-NJYjraEf5so&usqp=CAU" width="100" class="m-2">
+              <img *ngIf="selectedCity.id!=14" src="https://c8.alamy.com/comp/JYRHJD/outline-visakhapatnam-skyline-with-blue-buildings-and-copy-space-vector-JYRHJD.jpg" width="100" class="m-2">
+              <br />Visakhapatnam
+            </label>
+          </li> -->
         </ul>    
         <div class="cities-list" *ngIf="viewCities">
             <span class="text-center small text-dark">Other Cities</span>
