@@ -5,7 +5,7 @@ Book My Show Application:
 App Idea: Booking Tickets for Movies
 
 App Features:
-•	Customer can Buy Tickets for Shows //
+•	Customer can Buy Tickets for Shows </br>
 •	Customer must login to buy tickets. // 
 •	Customer can select theatres based on location // 
 •	Customer can select date and check availability of seats //
