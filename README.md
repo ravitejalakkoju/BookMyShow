@@ -1,6 +1,6 @@
 # BookMyShow
 
-Book My Show Application:
+Book My Show Application Clone:
 
 App Idea: Booking Tickets for Movies
 
